@@ -1,0 +1,15 @@
+node_modules/
+dist/
+verification/
+test-results/
+playwright-report/
+.vercel/
+.sites-runtime/
+__pycache__/
+*.pyc
+reference/work/
+reference/outputs/
+.env
+.env.*
+!.env.example
+.DS_Store

@@ -1,0 +1,266 @@
+{
+  "params": {
+    "rest": 2,
+    "cap": 40,
+    "ink": 32,
+    "scale": 4,
+    "threshold": 6,
+    "crowd": 5
+  },
+  "runs": [
+    {
+      "size": 72,
+      "seed": 101,
+      "memory": true,
+      "late_density": 0.02816358024691357,
+      "late_balance": 0.9863013698630139,
+      "conversion_fraction": 0.0,
+      "final_active": 146
+    },
+    {
+      "size": 72,
+      "seed": 101,
+      "memory": false,
+      "late_density": 0.005787037037037037,
+      "late_balance": 0.5999999999999999,
+      "conversion_fraction": 0.0,
+      "final_active": 30
+    },
+    {
+      "size": 72,
+      "seed": 202,
+      "memory": true,
+      "late_density": 0.24889081790123452,
+      "late_balance": 0.9904996824448015,
+      "conversion_fraction": 0.0,
+      "final_active": 1278
+    },
+    {
+      "size": 72,
+      "seed": 202,
+      "memory": false,
+      "late_density": 0.0077160493827160516,
+      "late_balance": 0.75,
+      "conversion_fraction": 0.0,
+      "final_active": 40
+    },
+    {
+      "size": 72,
+      "seed": 303,
+      "memory": true,
+      "late_density": 0.1425590277777778,
+      "late_balance": 0.9959541162271877,
+      "conversion_fraction": 0.0,
+      "final_active": 739
+    },
+    {
+      "size": 72,
+      "seed": 303,
+      "memory": false,
+      "late_density": 0.008871913580246915,
+      "late_balance": 0.1305191489361702,
+      "conversion_fraction": 0.0,
+      "final_active": 47
+    },
+    {
+      "size": 72,
+      "seed": 404,
+      "memory": true,
+      "late_density": 0.02449845679012346,
+      "late_balance": 0.7716535433070867,
+      "conversion_fraction": 0.0,
+      "final_active": 127
+    },
+    {
+      "size": 72,
+      "seed": 404,
+      "memory": false,
+      "late_density": 0.004243827160493826,
+      "late_balance": 1.0,
+      "conversion_fraction": 0.0,
+      "final_active": 22
+    },
+    {
+      "size": 144,
+      "seed": 101,
+      "memory": true,
+      "late_density": 0.027777777777777787,
+      "late_balance": 1.0,
+      "conversion_fraction": 0.0,
+      "final_active": 576
+    },
+    {
+      "size": 144,
+      "seed": 101,
+      "memory": false,
+      "late_density": 0.0020736882716049384,
+      "late_balance": 0.8837209302325579,
+      "conversion_fraction": 0.0,
+      "final_active": 43
+    },
+    {
+      "size": 144,
+      "seed": 202,
+      "memory": true,
+      "late_density": 0.24950569058641972,
+      "late_balance": 0.9924039501186649,
+      "conversion_fraction": 0.0,
+      "final_active": 5195
+    },
+    {
+      "size": 144,
+      "seed": 202,
+      "memory": false,
+      "late_density": 0.24978298611111102,
+      "late_balance": 0.0,
+      "conversion_fraction": 0.0,
+      "final_active": 5179
+    },
+    {
+      "size": 144,
+      "seed": 303,
+      "memory": true,
+      "late_density": 0.24960214120370366,
+      "late_balance": 0.996377251452249,
+      "conversion_fraction": 0.0,
+      "final_active": 5205
+    },
+    {
+      "size": 144,
+      "seed": 303,
+      "memory": false,
+      "late_density": 0.24986738040123457,
+      "late_balance": 0.0,
+      "conversion_fraction": 0.0,
+      "final_active": 5190
+    },
+    {
+      "size": 144,
+      "seed": 404,
+      "memory": true,
+      "late_density": 0.24983121141975312,
+      "late_balance": 0.9907406472469982,
+      "conversion_fraction": 0.0,
+      "final_active": 5197
+    },
+    {
+      "size": 144,
+      "seed": 404,
+      "memory": false,
+      "late_density": 0.0026523919753086425,
+      "late_balance": 0.4,
+      "conversion_fraction": 0.0,
+      "final_active": 55
+    },
+    {
+      "size": 240,
+      "seed": 101,
+      "memory": true,
+      "late_density": 0.23763354166666667,
+      "late_balance": 0.9955149874561415,
+      "conversion_fraction": 0.0,
+      "final_active": 14350
+    },
+    {
+      "size": 240,
+      "seed": 101,
+      "memory": false,
+      "late_density": 0.0005381944444444444,
+      "late_balance": 0.2580645161290322,
+      "conversion_fraction": 0.0,
+      "final_active": 31
+    },
+    {
+      "size": 240,
+      "seed": 202,
+      "memory": true,
+      "late_density": 0.24944444444444447,
+      "late_balance": 0.9960740395486068,
+      "conversion_fraction": 0.0,
+      "final_active": 14335
+    },
+    {
+      "size": 240,
+      "seed": 202,
+      "memory": false,
+      "late_density": 0.0017013888888888886,
+      "late_balance": 0.7142857142857142,
+      "conversion_fraction": 0.0,
+      "final_active": 98
+    },
+    {
+      "size": 240,
+      "seed": 303,
+      "memory": true,
+      "late_density": 0.24996093749999998,
+      "late_balance": 0.9972397842780049,
+      "conversion_fraction": 0.0,
+      "final_active": 14415
+    },
+    {
+      "size": 240,
+      "seed": 303,
+      "memory": false,
+      "late_density": 0.04152777777777779,
+      "late_balance": 0.041806020066889625,
+      "conversion_fraction": 0.0,
+      "final_active": 2392
+    },
+    {
+      "size": 240,
+      "seed": 404,
+      "memory": true,
+      "late_density": 0.000642361111111111,
+      "late_balance": 0.1621621621621622,
+      "conversion_fraction": 0.0,
+      "final_active": 37
+    },
+    {
+      "size": 240,
+      "seed": 404,
+      "memory": false,
+      "late_density": 0.00012152777777777776,
+      "late_balance": 0.8571428571428574,
+      "conversion_fraction": 0.0,
+      "final_active": 7
+    }
+  ],
+  "interventions": [
+    {
+      "after": 0,
+      "erase_difference": 0.0,
+      "one_cell_difference": 4.8225308641975306e-05
+    },
+    {
+      "after": 1,
+      "erase_difference": 9.645061728395061e-05,
+      "one_cell_difference": 4.8225308641975306e-05
+    },
+    {
+      "after": 10,
+      "erase_difference": 0.0013020833333333333,
+      "one_cell_difference": 0.0
+    },
+    {
+      "after": 30,
+      "erase_difference": 0.006221064814814815,
+      "one_cell_difference": 9.645061728395061e-05
+    },
+    {
+      "after": 100,
+      "erase_difference": 0.03260030864197531,
+      "one_cell_difference": 9.645061728395061e-05
+    },
+    {
+      "after": 300,
+      "erase_difference": 0.13855131172839505,
+      "one_cell_difference": 0.01461226851851852
+    }
+  ],
+  "checks": [
+    "sign inversion symmetry",
+    "90-degree rotation symmetry",
+    "empty world remains empty"
+  ],
+  "seconds": 39.6448917388916
+}

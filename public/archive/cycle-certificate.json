@@ -1,0 +1,56 @@
+[
+  {
+    "size": 48,
+    "memory": true,
+    "transient": 39,
+    "period": 26,
+    "repeat": 65,
+    "sha256": "1ae49f64bbdfa73b6dee36799036c377b0c0ba3edfabc43f1630e532cafa8f80",
+    "exact_arrays_verified": true
+  },
+  {
+    "size": 48,
+    "memory": false,
+    "transient": 23,
+    "period": 6,
+    "repeat": 29,
+    "sha256": "0a8975dee8916a0b83825ea648323bf99b6c33e0f7cedda8462333b3fabc22a2",
+    "exact_arrays_verified": true
+  },
+  {
+    "size": 96,
+    "memory": true,
+    "transient": 63,
+    "period": 26,
+    "repeat": 89,
+    "sha256": "8ef3a57689fe0bf00009d81c211c0c25def79c9c56ccaf35aa1a21edd3dfd71d",
+    "exact_arrays_verified": true
+  },
+  {
+    "size": 96,
+    "memory": false,
+    "transient": 47,
+    "period": 6,
+    "repeat": 53,
+    "sha256": "211b29ae335345764bcf790baf8dfc342780b58776ec42f06d3608782fcd2db0",
+    "exact_arrays_verified": true
+  },
+  {
+    "size": 192,
+    "memory": true,
+    "transient": 111,
+    "period": 26,
+    "repeat": 137,
+    "sha256": "d3da452123a2cd65159aded70e993bdc6f478efd38b5da4bfabce339341169b2",
+    "exact_arrays_verified": true
+  },
+  {
+    "size": 192,
+    "memory": false,
+    "transient": 95,
+    "period": 6,
+    "repeat": 101,
+    "sha256": "57de99e921d988be6b0a670e263d9668549c5953b1edd66bf88bfc70d5a15a91",
+    "exact_arrays_verified": true
+  }
+]
