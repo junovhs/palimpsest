@@ -10,7 +10,7 @@ app.innerHTML = `
 <a class="skip" href="#world">Skip to simulation</a>
 <header class="header">
   <a class="brand" href="#lab" aria-label="Palimpsest home"><span class="brand-mark" aria-hidden="true">▤</span> PALIMPSEST</a>
-  <nav aria-label="Main navigation"><a href="#lab" id="lab-link" aria-current="page">Play</a><a href="#notes" id="notes-link">Field notes</a><a href="https://github.com/junovhs/palimpsest" target="_blank" rel="noreferrer">Source ↗</a></nav>
+  <span class="strip-stats" aria-hidden="true"><span><b id="strip-tick">0</b> t</span><span><b id="strip-density">0%</b></span></span><nav aria-label="Main navigation"><a href="#lab" id="lab-link" aria-current="page">Play</a><a href="#notes" id="notes-link">Field notes</a><a href="https://github.com/junovhs/palimpsest" target="_blank" rel="noreferrer">Source ↗</a></nav>
 </header>
 <main>
 <section id="lab" aria-labelledby="lab-title">
@@ -18,20 +18,22 @@ app.innerHTML = `
   <div class="lab-layout">
     <div class="stage">
       <div class="stage-top"><span id="pattern-label">SIX-CELL SPRING</span><span id="edge-label">ABSORBING EDGES</span></div>
-      <div class="canvas-wrap" id="canvas-wrap"><canvas id="world" width="144" height="144" tabindex="0" aria-label="Interactive cellular world. Click to plant a spring. Use the Paint at center button for keyboard painting.">Your browser needs Canvas to display the simulation.</canvas><canvas id="volume" hidden tabindex="0" aria-label="Three-dimensional view of the world. Drag to orbit, scroll to zoom, arrow keys to rotate."></canvas></div>
+      <div class="canvas-wrap" id="canvas-wrap"><canvas id="world" width="144" height="144" tabindex="0" aria-label="Interactive cellular world. Click to plant a spring. Use the Paint at center button for keyboard painting.">Your browser needs Canvas to display the simulation.</canvas><canvas id="volume" hidden tabindex="0" aria-label="Three-dimensional view of the world. Drag to orbit, pinch or scroll to zoom, arrow keys to rotate."></canvas><button id="exit-fill" class="exit-fill" hidden aria-label="Exit fullscreen">✕</button></div>
       <div class="stage-bottom"><div class="legend"><span><i class="swatch a"></i>A pulses</span><span><i class="swatch b"></i>B pulses</span><span class="memory-legend">Faint color is memory</span></div><span class="grid-label" id="grid-label">144 × 144</span></div>
       <div class="transport"><button id="play" class="primary">Pause</button><button id="step">Step</button><button id="restart">Restart</button><div class="view-toggle" role="group" aria-label="View mode"><button id="view-2d" aria-pressed="true">Flat</button><button id="view-3d" aria-pressed="false">Volume</button></div><button id="fullscreen" aria-label="Enter fullscreen" title="Fullscreen">⛶</button><label class="speed">Speed <input id="speed" aria-label="Simulation speed" type="range" min="1" max="60" value="22"><output id="speed-value">22/s</output></label></div>
       <div class="stats" aria-label="World statistics"><div><span>TIME</span><strong id="tick">0 <small>ticks</small></strong></div><div><span>ACTIVITY</span><strong id="density">0%</strong></div><div><span>PULSE BALANCE</span><strong id="balance">A 100% / B 0%</strong></div></div>
       <p id="status" role="status">Two A pulses. Four recovering cells. No B pulses planted.</p>
     </div>
     <aside class="controls" aria-label="Simulation controls">
-      <div class="control-section"><p class="eyebrow">01 / TRY THE DISCOVERY</p><h2>More memory. Less life.<br> Then life again.</h2><p class="muted">Same six cells. Change only what they leave behind.</p><div class="experiments"><button data-experiment="5"><span>Weak memory</span><strong>6-tick clock</strong></button><button data-experiment="12"><span>Middle memory</span><strong>Extinction</strong></button><button data-experiment="24" aria-pressed="true"><span>Strong memory</span><strong>26-tick clock</strong></button></div></div>
-      <div class="control-section"><p class="eyebrow">02 / MAKE IT YOURS</p><div class="field-row"><label>Rules<select id="preset"><option value="cathedral">Cathedral</option><option value="estuary">Estuary</option><option value="tidal">Tidal</option><option value="loom">Loom</option><option value="comets">Comets</option><option value="filigree">Filigree</option></select></label><label>Starting pattern<select id="pattern"><option value="spring">Six-cell spring</option><option value="twins">Two springs</option><option value="islands">Scattered islands</option><option value="blank">Blank world</option></select></label></div><div class="seed-row"><label>Seed<input id="seed" type="number" min="1" max="4294967295" value="17"></label><button id="new-seed">New islands</button></div><label>Paint<select id="brush"><option value="spring">Plant a spring</option><option value="a">A pulses</option><option value="b">B pulses</option><option value="erase">Clear a patch</option></select></label><p class="hint" id="brush-hint">Click anywhere to plant a spring.</p><button id="center" class="wide">Paint at center</button></div>
-      <div class="control-section"><div class="switch-row"><label><input id="memory" type="checkbox" checked> Memory feedback</label><label><input id="wrap" type="checkbox"> Wrap edges</label></div><button id="erase-memory" class="wide">Erase ground memory</button><p class="hint">The pulses stay. Only their history disappears.</p><details id="rule-editor"><summary>Edit the six rules</summary><div id="parameters"></div></details></div>
-      <div class="control-section"><p class="eyebrow">03 / SCALE &amp; LIGHT</p><div class="field-row"><label>World size<select id="size"><option value="96">96 × 96</option><option value="144" selected>144 × 144</option><option value="192">192 × 192</option><option value="256">256 × 256</option><option value="384">384 × 384</option><option value="512">512 × 512</option></select></label><label>Palette<select id="palette">${(Object.keys(PALETTE_LABELS) as PaletteName[]).map(k => `<option value="${k}">${PALETTE_LABELS[k]}</option>`).join('')}</select></label></div><p class="hint">Bigger worlds are slower. The rules never change with size.</p>
-      <div id="volume-controls" class="volume-controls"><label for="depth"><span class="param-head"><span>Time depth</span><output id="value-depth">48</output></span><input id="depth" type="range" min="0" max="256" value="48" step="1"></label><label for="relief"><span class="param-head"><span>Ground relief</span><output id="value-relief">12</output></span><input id="relief" type="range" min="0" max="40" value="12" step="1"></label><label for="glow"><span class="param-head"><span>Glow</span><output id="value-glow">100</output></span><input id="glow" type="range" min="0" max="300" value="100" step="5"></label><label for="light"><span class="param-head"><span>Light angle</span><output id="value-light">35°</output></span><input id="light" type="range" min="0" max="360" value="35" step="5"></label><div class="switch-row"><label><input id="solid" type="checkbox"> Solid trails</label><label><input id="auto-rotate" type="checkbox"> Auto-rotate</label></div><button id="reset-view" class="wide">Reset camera</button><p class="hint">Older ticks stack upward. Drag to orbit, scroll to zoom. Paint in the flat view.</p></div></div>
+      <div class="sheet-head"><p class="eyebrow" id="sheet-title">RULES</p><button id="sheet-close" aria-label="Close panel">Done</button></div>
+      <div class="control-section" data-sheet="rules"><p class="eyebrow">01 / TRY THE DISCOVERY</p><h2>More memory. Less life.<br> Then life again.</h2><p class="muted">Same six cells. Change only what they leave behind.</p><div class="experiments"><button data-experiment="5"><span>Weak memory</span><strong>6-tick clock</strong></button><button data-experiment="12"><span>Middle memory</span><strong>Extinction</strong></button><button data-experiment="24" aria-pressed="true"><span>Strong memory</span><strong>26-tick clock</strong></button></div></div>
+      <div class="control-section" data-sheet="rules"><p class="eyebrow">02 / MAKE IT YOURS</p><div class="field-row"><label>Rules<select id="preset"><option value="cathedral">Cathedral</option><option value="estuary">Estuary</option><option value="tidal">Tidal</option><option value="loom">Loom</option><option value="comets">Comets</option><option value="filigree">Filigree</option></select></label><label>Starting pattern<select id="pattern"><option value="spring">Six-cell spring</option><option value="twins">Two springs</option><option value="islands">Scattered islands</option><option value="blank">Blank world</option></select></label></div><div class="seed-row"><label>Seed<input id="seed" type="number" min="1" max="4294967295" value="17"></label><button id="new-seed">New islands</button></div><label>Paint<select id="brush"><option value="spring">Plant a spring</option><option value="a">A pulses</option><option value="b">B pulses</option><option value="erase">Clear a patch</option></select></label><p class="hint" id="brush-hint">Click anywhere to plant a spring.</p><button id="center" class="wide">Paint at center</button></div>
+      <div class="control-section" data-sheet="rules"><div class="switch-row"><label><input id="memory" type="checkbox" checked> Memory feedback</label><label><input id="wrap" type="checkbox"> Wrap edges</label></div><button id="erase-memory" class="wide">Erase ground memory</button><p class="hint">The pulses stay. Only their history disappears.</p><details id="rule-editor"><summary>Edit the six rules</summary><div id="parameters"></div></details></div>
+      <div class="control-section" data-sheet="look"><p class="eyebrow">03 / SCALE &amp; LIGHT</p><div class="field-row"><label>World size<select id="size"><option value="96">96 × 96</option><option value="144" selected>144 × 144</option><option value="192">192 × 192</option><option value="256">256 × 256</option><option value="384">384 × 384</option><option value="512">512 × 512</option></select></label><label>Palette<select id="palette">${(Object.keys(PALETTE_LABELS) as PaletteName[]).map(k => `<option value="${k}">${PALETTE_LABELS[k]}</option>`).join('')}</select></label></div><p class="hint">Bigger worlds are slower, especially on phones. The rules never change with size.</p>
+      <div id="volume-controls" class="volume-controls"><label for="depth"><span class="param-head"><span>Time depth</span><output id="value-depth">48</output></span><input id="depth" type="range" min="0" max="256" value="48" step="1"></label><label for="relief"><span class="param-head"><span>Ground relief</span><output id="value-relief">12</output></span><input id="relief" type="range" min="0" max="40" value="12" step="1"></label><label for="glow"><span class="param-head"><span>Glow</span><output id="value-glow">100</output></span><input id="glow" type="range" min="0" max="300" value="100" step="5"></label><label for="light"><span class="param-head"><span>Light angle</span><output id="value-light">35°</output></span><input id="light" type="range" min="0" max="360" value="35" step="5"></label><div class="switch-row"><label><input id="solid" type="checkbox"> Solid trails</label><label><input id="auto-rotate" type="checkbox"> Auto-rotate</label></div><button id="reset-view" class="wide">Reset camera</button><p class="hint">Older ticks stack upward. Drag to orbit, pinch or scroll to zoom. Paint in the flat view.</p></div></div>
     </aside>
   </div>
+  <nav class="dock" aria-label="Quick controls"><button id="dock-play" class="primary"><i aria-hidden="true">⏸</i>Pause</button><button id="dock-restart"><i aria-hidden="true">↺</i>Restart</button><button id="dock-view" aria-pressed="false"><i aria-hidden="true">◈</i>Volume</button><button id="dock-rules" aria-pressed="false"><i aria-hidden="true">⚙</i>Rules</button><button id="dock-look" aria-pressed="false"><i aria-hidden="true">✦</i>Look</button></nav>
 </section>
 <section id="notes" hidden aria-labelledby="notes-title"></section>
 </main>
@@ -80,6 +82,7 @@ function draw(forceStats = false) {
     const { positive, negative, active, cells } = world.counts();
     el('tick').innerHTML = `${world.t.toLocaleString()} <small>ticks</small>`;
     el('density').textContent = `${(active / cells * 100).toFixed(1)}%`;
+    el('strip-tick').textContent = world.t.toLocaleString(); el('strip-density').textContent = `${(active / cells * 100).toFixed(1)}%`;
     el('balance').textContent = active ? `A ${Math.round(positive / active * 100)}% / B ${Math.round(negative / active * 100)}%` : 'No active pulses';
     canvas.setAttribute('aria-label', `Cellular world at tick ${world.t}: ${positive} A pulses and ${negative} B pulses. Click to paint, or use Paint at center.`);
     lastStats = world.t;
@@ -95,7 +98,10 @@ function syncControls() {
     button.setAttribute('aria-pressed', String(active));
   }
 }
-function setRunning(value: boolean) { running = value; accumulator = 0; el('play').textContent = running ? 'Pause' : 'Run'; el('play').setAttribute('aria-label', running ? 'Pause simulation' : 'Run simulation'); }
+function setRunning(value: boolean) {
+  running = value; accumulator = 0; el('play').textContent = running ? 'Pause' : 'Run'; el('play').setAttribute('aria-label', running ? 'Pause simulation' : 'Run simulation');
+  el('dock-play').innerHTML = running ? '<i aria-hidden="true">⏸</i>Pause' : '<i aria-hidden="true">▶</i>Run'; el('dock-play').setAttribute('aria-label', running ? 'Pause simulation' : 'Run simulation');
+}
 function seedValue() { const n = Number(input('seed').value); return Number.isInteger(n) && n >= 1 && n <= 4294967295 ? n : 17; }
 function restart() {
   input('seed').value = String(seedValue());
@@ -135,14 +141,25 @@ select('palette').onchange = () => { palette = PALETTES[select('palette').value 
 function setView(value: boolean) {
   if (value && !volume.available) { notice('This browser cannot show the 3D view: WebGL2 is unavailable.'); return; }
   threeD = value; canvas.hidden = threeD; volumeCanvas.hidden = !threeD; el('volume-controls').hidden = !threeD;
-  el('view-2d').setAttribute('aria-pressed', String(!threeD)); el('view-3d').setAttribute('aria-pressed', String(threeD));
+  el('view-2d').setAttribute('aria-pressed', String(!threeD)); el('view-3d').setAttribute('aria-pressed', String(threeD)); el('dock-view').setAttribute('aria-pressed', String(threeD));
   el('canvas-wrap').classList.toggle('is-3d', threeD);
   if (!threeD) draw(true);
 }
 el('view-2d').onclick = () => setView(false);
 el('view-3d').onclick = () => setView(true);
-el('fullscreen').onclick = () => { if (document.fullscreenElement) void document.exitFullscreen(); else void el('canvas-wrap').requestFullscreen?.(); };
-document.addEventListener('fullscreenchange', () => { const on = !!document.fullscreenElement; el('fullscreen').setAttribute('aria-label', on ? 'Exit fullscreen' : 'Enter fullscreen'); });
+// iOS Safari has no element fullscreen, so fall back to a fixed overlay that fills the screen.
+const wrap = el('canvas-wrap');
+const canFullscreen = typeof wrap.requestFullscreen === 'function' && document.fullscreenEnabled;
+function fillState(on: boolean) { el('fullscreen').setAttribute('aria-label', on ? 'Exit fullscreen' : 'Enter fullscreen'); el('exit-fill').hidden = !on; }
+function setFill(on: boolean) {
+  if (canFullscreen) { if (on) void wrap.requestFullscreen(); else if (document.fullscreenElement) void document.exitFullscreen(); return; }
+  wrap.classList.toggle('fill', on); document.body.classList.toggle('no-scroll', on); fillState(on);
+}
+const filled = () => canFullscreen ? !!document.fullscreenElement : wrap.classList.contains('fill');
+el('fullscreen').onclick = () => setFill(!filled());
+el('exit-fill').onclick = () => setFill(false);
+document.addEventListener('fullscreenchange', () => fillState(!!document.fullscreenElement));
+document.addEventListener('keydown', event => { if (event.key === 'Escape' && !canFullscreen && filled()) setFill(false); });
 const volumeSliders: Array<[string, (v: number) => void, (v: number) => string]> = [
   ['depth', v => { volume.options.depth = v; }, v => String(v)],
   ['relief', v => { volume.options.relief = v / 100; }, v => String(v)],
@@ -153,6 +170,27 @@ for (const [id, apply, format] of volumeSliders) input(id).oninput = () => { con
 input('solid').onchange = () => { volume.options.solid = input('solid').checked; };
 input('auto-rotate').onchange = () => { volume.options.autoRotate = input('auto-rotate').checked; };
 el('reset-view').onclick = () => volume.resetView();
+// Phone shell: the transport row lives inside the bottom sheet, and the dock opens sheets.
+const phone = matchMedia('(max-width: 760px), ((max-height: 500px) and (pointer: coarse))');
+const transport = document.querySelector<HTMLDivElement>('.transport')!, stage = document.querySelector<HTMLDivElement>('.stage')!, controls = document.querySelector<HTMLElement>('.controls')!;
+function setSheet(name: 'rules' | 'look' | null) {
+  if (name) document.body.dataset.sheet = name; else delete document.body.dataset.sheet;
+  el('sheet-title').textContent = name === 'look' ? 'SCALE & LIGHT' : 'RULES';
+  el('dock-rules').setAttribute('aria-pressed', String(name === 'rules')); el('dock-look').setAttribute('aria-pressed', String(name === 'look'));
+}
+function layoutPhone() {
+  if (phone.matches) { if (transport.parentElement !== controls) controls.insertBefore(transport, el('sheet-title').parentElement!.nextSibling); }
+  else { if (transport.parentElement !== stage) stage.insertBefore(transport, el('tick').closest('.stats')!); setSheet(null); }
+}
+phone.addEventListener('change', layoutPhone); layoutPhone();
+el('dock-play').onclick = () => setRunning(!running);
+el('dock-restart').onclick = restart;
+el('dock-view').onclick = () => setView(!threeD);
+el('dock-rules').onclick = () => setSheet(document.body.dataset.sheet === 'rules' ? null : 'rules');
+el('dock-look').onclick = () => setSheet(document.body.dataset.sheet === 'look' ? null : 'look');
+el('sheet-close').onclick = () => setSheet(null);
+volumeCanvas.addEventListener('pointerdown', () => { if (phone.matches) setSheet(null); });
+canvas.addEventListener('pointerdown', () => { if (phone.matches) setSheet(null); });
 let dragging = false;
 function paintPointer(event: PointerEvent) {
   const rect = canvas.getBoundingClientRect();

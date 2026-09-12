@@ -76,7 +76,8 @@ export class Volume {
   private layers: Array<{ buffer: WebGLBuffer; count: number; tick: number }> = [];
   private head = 0; private filled = 0;
   private scratch = new Uint32Array(0);
-  private dragging = false; private lastX = 0; private lastY = 0;
+  private pointers = new Map<number, { x: number; y: number }>();
+  private pinch = 0;
   private uniforms = new Map<string, WebGLUniformLocation | null>();
 
   constructor(private canvas: HTMLCanvasElement) {
@@ -136,7 +137,7 @@ export class Volume {
   render(world: World, palette: Palette, elapsed: number) {
     if (!this.available || this.n !== world.n) return;
     const gl = this.gl, { canvas } = this, o = this.options;
-    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const dpr = Math.min(devicePixelRatio || 1, canvas.clientWidth < 700 ? 1.5 : 2);
     const w = Math.max(1, Math.round(canvas.clientWidth * dpr)), h = Math.max(1, Math.round(canvas.clientHeight * dpr));
     if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
     gl.viewport(0, 0, w, h);
@@ -198,7 +199,9 @@ export class Volume {
     const cp = Math.cos(this.pitch), sp = Math.sin(this.pitch);
     const target = [0, this.options.relief * .4, 0];
     const eye = [target[0] + this.distance * cp * Math.sin(this.yaw), target[1] + this.distance * sp, target[2] + this.distance * cp * Math.cos(this.yaw)];
-    return multiply(perspective(38 * Math.PI / 180, aspect, .02, 30), lookAt(eye, target, [0, 1, 0]));
+    // Keep the horizontal field of view fixed on portrait screens so the world fills the width.
+    const fov = aspect >= 1 ? 38 * Math.PI / 180 : 2 * Math.atan(Math.tan(19 * Math.PI / 180) / aspect);
+    return multiply(perspective(fov, aspect, .02, 30), lookAt(eye, target, [0, 1, 0]));
   }
 
   private u(programObject: WebGLProgram, name: string) {
@@ -208,14 +211,19 @@ export class Volume {
   }
 
   private bindPointer() {
-    const { canvas } = this;
-    canvas.onpointerdown = event => { this.dragging = true; this.lastX = event.clientX; this.lastY = event.clientY; canvas.setPointerCapture(event.pointerId); };
-    canvas.onpointermove = event => {
-      if (!this.dragging) return;
-      this.yaw -= (event.clientX - this.lastX) * .008; this.pitch = clamp(this.pitch + (event.clientY - this.lastY) * .008, .05, 1.5);
-      this.lastX = event.clientX; this.lastY = event.clientY;
+    const { canvas, pointers } = this;
+    const span = () => { const [a, b] = [...pointers.values()]; return Math.hypot(a.x - b.x, a.y - b.y); };
+    canvas.onpointerdown = event => {
+      pointers.set(event.pointerId, { x: event.clientX, y: event.clientY }); canvas.setPointerCapture(event.pointerId);
+      if (pointers.size === 2) this.pinch = span();
     };
-    canvas.onpointerup = canvas.onpointercancel = () => { this.dragging = false; };
+    canvas.onpointermove = event => {
+      const last = pointers.get(event.pointerId); if (!last) return;
+      if (pointers.size === 1) { this.yaw -= (event.clientX - last.x) * .008; this.pitch = clamp(this.pitch + (event.clientY - last.y) * .008, .05, 1.5); }
+      last.x = event.clientX; last.y = event.clientY;
+      if (pointers.size === 2) { const now = span(); if (this.pinch > 0 && now > 0) this.distance = clamp(this.distance * this.pinch / now, .35, 6); this.pinch = now; }
+    };
+    canvas.onpointerup = canvas.onpointercancel = event => { pointers.delete(event.pointerId); this.pinch = 0; };
     canvas.onwheel = event => { event.preventDefault(); this.distance = clamp(this.distance * Math.exp(event.deltaY * .0012), .35, 6); };
     canvas.onkeydown = event => {
       const step = .08;

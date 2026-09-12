@@ -30,7 +30,7 @@ Open the local address printed by Vite. The site has two views:
 - **Volume:** a WebGL2 view of the same world. Ground memory becomes a lit voxel terrain and the last N ticks stack above it as a rotatable time volume. Drag to orbit, scroll to zoom, arrow keys to rotate; sliders control time depth, relief, glow, and light angle, with solid or glowing trails and auto-rotate. It only reads the engine's state and never changes it.
 - **Field notes:** the seed, exact rules, transition table, cycle certificates, experiment history, downloadable results, and related research.
 
-Space pauses or runs when the canvas or page body is focused. The **Step** and **Paint at center** buttons support keyboard exploration. Reduced-motion preferences start the simulation paused. On phones, tap to plant springs or drag to paint pulses.
+On phones (and landscape phones) the site becomes a fixed app shell: the world fills the screen, nothing scrolls, and a slim dock at the bottom runs, restarts, toggles the volume view, and opens the Rules and Look sheets. In the volume view, drag to orbit and pinch to zoom. Space pauses or runs when the canvas or page body is focused. The **Step** and **Paint at center** buttons support keyboard exploration. Reduced-motion preferences start the simulation paused. On phones, tap to plant springs or drag to paint pulses.
 
 ## Deploy to Vercel
 
