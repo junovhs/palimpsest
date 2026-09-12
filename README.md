@@ -26,7 +26,8 @@ npm run dev
 
 Open the local address printed by Vite. The site has two views:
 
-- **Play:** the spring, two-spring collisions, seeded islands, blank worlds, three rule presets, drawing, memory controls, and all six editable parameters.
+- **Play:** the spring, two-spring collisions, seeded islands, blank worlds, six rule presets (Cathedral, Estuary, Tidal, plus the hand-found Loom, Comets, and Filigree), drawing, memory controls, and all six editable parameters. Worlds run from 96 × 96 up to 512 × 512, with five color palettes and a fullscreen button.
+- **Volume:** a WebGL2 view of the same world. Ground memory becomes a lit voxel terrain and the last N ticks stack above it as a rotatable time volume. Drag to orbit, scroll to zoom, arrow keys to rotate; sliders control time depth, relief, glow, and light angle, with solid or glowing trails and auto-rotate. It only reads the engine's state and never changes it.
 - **Field notes:** the seed, exact rules, transition table, cycle certificates, experiment history, downloadable results, and related research.
 
 Space pauses or runs when the canvas or page body is focused. The **Step** and **Paint at center** buttons support keyboard exploration. Reduced-motion preferences start the simulation paused. On phones, tap to plant springs or drag to paint pulses.
@@ -68,6 +69,8 @@ These cover the public controls, notes and archive, mobile layout, and optional 
 ```text
 src/engine.ts          Pure, synchronous integer update rule
 src/main.ts            Canvas rendering and public controls
+src/volume.ts          WebGL2 terrain and time-volume renderer
+src/palettes.ts        Shared color palettes for both views
 src/styles.css        Responsive lab styling
 src/notes.ts           Public field notes
 src/agent-tools.ts     Optional, feature-detected browser-agent tools

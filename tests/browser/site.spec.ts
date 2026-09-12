@@ -74,3 +74,39 @@ test('optional browser-agent tools use the same state and reject invalid inputs'
   expect(result.started.parameters.ink).toBe(12); expect(result.after.parameters.ink).toBe(12);
   await expect(page.locator('#param-ink')).toHaveValue('12');
 });
+
+test('world size, presets, palette, and the 3D volume view work', async ({ page }) => {
+  const errors: string[] = []; page.on('pageerror', e => errors.push(e.message));
+  await page.goto('/');
+  await page.locator('#size').selectOption('256');
+  await expect(page.locator('#grid-label')).toHaveText('256 × 256');
+  expect(await page.locator('#world').getAttribute('width')).toBe('256');
+  await page.locator('#pattern').selectOption('blank');
+  await page.getByRole('button', { name: 'Paint at center' }).click();
+  await expect(page.locator('#balance')).toContainText('A 100%');
+  await page.locator('#preset').selectOption('loom');
+  await expect(page.locator('#value-ink')).toHaveText('0');
+  await expect(page.locator('#value-rest')).toHaveText('1');
+  await page.locator('#palette').selectOption('ember');
+  await page.locator('#size').selectOption('96');
+  await page.locator('#preset').selectOption('cathedral'); await page.locator('#pattern').selectOption('spring');
+  await page.getByRole('button', { name: 'Volume' }).click();
+  await expect(page.locator('#volume')).toBeVisible();
+  await expect(page.locator('#world')).toBeHidden();
+  await expect(page.locator('#volume-controls')).toBeVisible();
+  await page.locator('#depth').fill('120'); await expect(page.locator('#value-depth')).toHaveText('120');
+  await page.locator('#solid').check();
+  for (let i = 0; i < 20; i++) await page.locator('#step').dispatchEvent('click');
+  await expect(page.locator('#tick')).toContainText('20');
+  const drawn = await page.evaluate(() => new Promise<boolean>(resolve => requestAnimationFrame(() => {
+    const canvas = document.getElementById('volume') as HTMLCanvasElement;
+    const gl = canvas.getContext('webgl2')!; const px = new Uint8Array(canvas.width * canvas.height * 4);
+    gl.readPixels(0, 0, canvas.width, canvas.height, gl.RGBA, gl.UNSIGNED_BYTE, px);
+    let bright = 0; for (let i = 0; i < px.length; i += 4) if (px[i] + px[i + 1] + px[i + 2] > 150) bright++;
+    resolve(canvas.width > 100 && bright > 50);
+  })));
+  expect(drawn).toBeTruthy();
+  await page.getByRole('button', { name: 'Flat' }).click();
+  await expect(page.locator('#world')).toBeVisible();
+  expect(errors).toEqual([]);
+});

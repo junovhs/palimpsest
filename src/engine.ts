@@ -11,6 +11,12 @@ export const PRESETS = {
   cathedral: { rest: 4, cap: 64, ink: 24, scale: 2, threshold: 4, crowd: 8 },
   estuary: { rest: 2, cap: 40, ink: 32, scale: 4, threshold: 6, crowd: 5 },
   tidal: { rest: 4, cap: 64, ink: 48, scale: 4, threshold: 6, crowd: 8 },
+  // Found by hand in the rule editor. Memoryless and fast: a moiré weave of one pulse type.
+  loom: { rest: 1, cap: 64, ink: 0, scale: 2, threshold: 5, crowd: 8 },
+  // Sparse diagonal streaks that glide and collide.
+  comets: { rest: 1, cap: 20, ink: 0, scale: 1, threshold: 5, crowd: 2 },
+  // Slow, dense, two-tone filigree.
+  filigree: { rest: 2, cap: 62, ink: 18, scale: 2, threshold: 7, crowd: 3 },
 } satisfies Record<string, Parameters>;
 export type Preset = keyof typeof PRESETS;
 export type Pattern = 'spring' | 'twins' | 'islands' | 'blank';
