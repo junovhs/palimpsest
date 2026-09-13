@@ -8,7 +8,7 @@
     "dev": "vite --host 127.0.0.1",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 127.0.0.1",
-    "test": "tsx --test tests/engine.test.ts tests/playground.test.ts",
+    "test": "tsx --test tests/engine.test.ts tests/playground.test.ts tests/patch.test.ts",
     "test:e2e": "playwright test",
     "hunt": "tsx scripts/hunt.ts && tsx scripts/travelers.ts",
     "hunt:springs": "tsx scripts/springs.ts",

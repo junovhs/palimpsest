@@ -19,6 +19,10 @@ export class Flat {
     this.age = new Uint16Array(w.a.length); this.sign = new Int8Array(w.a.length); this.tick = w.t;
     this.record(w);
   }
+  copyHistory(other: Flat, w: World) {
+    this.attach(w); this.options={...other.options};
+    this.age=other.age.slice(); this.sign=other.sign.slice(); this.tick=other.tick;
+  }
   record(w: World) {
     const dt = Math.max(0, w.t - this.tick); this.tick = w.t;
     for (let i = 0; i < w.a.length; i++) {

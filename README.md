@@ -1,6 +1,8 @@
 # Palimpsest
 
-A playable cellular automaton where pulses rewrite the ground they travel through. Built with TypeScript and Canvas, with no backend, account, API key, or runtime service.
+A mobile-first studio for slow, art-directed backgrounds. Shape a living canvas with Liquid, Mist, or Satin finishes; explore related compositions; save discoveries; and export stills or motion. Built with TypeScript, Canvas and WebGL, with no backend, account, API key, or rendering service.
+
+The underlying cellular automaton is preserved: pulses rewrite the ground they travel through. Its original verified experiments remain available in Rules and Field notes.
 
 The first specimen is a **six-cell spring**: two A pulses and four recovering cells produce a sustained, two-type, 26-tick oscillator. The first B pulses appear at tick 6. After settling, 13 ticks reverse every pulse and memory sign; 26 ticks restore the entire state.
 
@@ -24,25 +26,69 @@ npm ci
 npm run dev
 ```
 
-Open the local address printed by Vite. The site has two views:
+Open the local address printed by Vite. The studio opens with a pre-evolved Slow Lava composition, based on the supplied rules (deposit 45, recovery 3, threshold 5, crowding 3, capacity 64, divisor 4) and seed 21. This recreates the starting recipe, not the exact browser-only discovery snapshot.
 
-- **Play:** the spring, two-spring collisions, seeded islands, blank worlds, six rule presets (Cathedral, Estuary, Tidal, plus the hand-found Loom, Comets, and Filigree), drawing, memory controls, and all six editable parameters. Worlds run from 96 × 96 up to 512 × 512 (plus a 32 × 32 research chamber), with five color palettes and a fullscreen button.
-- **Volume:** a WebGL2 view of the same world. Ground memory becomes a lit voxel terrain and the last N ticks stack above it as a rotatable time volume. Drag to orbit, scroll to zoom, arrow keys to rotate; sliders control time depth, relief, glow, and light angle, with solid or glowing trails and auto-rotate. It only reads the engine's state and never changes it.
-- **Field notes:** the seed, exact rules, transition table, cycle certificates, experiment history, downloadable results, and related research.
+## Background studio
 
-On phones (and landscape phones) the site becomes a fixed app shell: the world fills the screen, nothing scrolls, and a slim dock at the bottom runs, restarts, toggles the volume view, and opens the Rules and Look sheets. In the volume view, drag to orbit and pinch to zoom. Space pauses or runs when the canvas or page body is focused. The **Step** and **Paint at center** buttons support keyboard exploration. Reduced-motion preferences start the simulation paused. On phones, tap to plant springs or drag to paint pulses.
+The canvas and common controls fit in one screen. Desktop has a fixed inspector beside the artboard; phones have a compact inspector below it. Look, Compose, Collection and Rules are keyboard-accessible tabs. On reduced-motion devices, the composition starts paused.
 
-## Visual playground
+- **Look:** Liquid, Mist, Satin and the original pixel renderer, five palettes, Softness, Relief, Afterglow and Pace. The four quick looks lead into the larger 20-preset visual synthesizer library. Presets are visual recipes, not claims of new automaton rules.
+- **Compose:** landscape, square or portrait framing, detail scale, quiet space for titles, and painting tools. Quiet space changes the rendered image without erasing the simulation.
+- **Collection:** name and save the current world, reopen old discoveries, download a JSON backup or import one. The existing `palimpsest-discoveries-v1` storage key and old discovery format remain supported. New discoveries add optional art settings. Imports validate every entry before appending and preserve the collection on errors. Browser storage limits still apply; export a backup before clearing browser data or switching origins.
+- **Rules:** the original six parameters and locks, pattern atlas, research experiments, world sizes, original rendering settings and volume controls. Scientific fixtures and archived certificates are unchanged.
 
-The six rules open at the top of the controls. **Mutate slightly** changes only unlocked rules; **Undo** restores the exact pre-edit world and rules and pauses it. Undo keeps up to 12 moments with a cell-budget limit for large worlds.
+**Vary this** creates a new seeded composition with the current rules and finish. **Surprise me** chooses another curated material. **Undo**, always beside the transport, restores the pre-edit world along with its palette, art settings, seed, pattern and speed, then pauses. Undo retains up to 12 moments with a cell-budget limit. Painting supports continuous strokes, adjustable brushes, and keyboard placement using Paint at center.
 
-**Painting** now includes adjustable-radius shockwaves, A/B pulse beams, memory fields that favor either pulse type, and an eraser. Memory force controls how strongly a brush primes the ground. Dragging interpolates stamps for continuous strokes; holding a brush down reapplies it after each simulation tick. A cursor shows the footprint, and [ / ] resize it while the canvas is focused. One stroke is one undo moment. Brushes clip at absorbing boundaries and cross edges when wrapping is enabled.
+### Visual synthesizer and blueprints
 
-The **Pattern atlas** contains actual tick-48 previews of fourteen reproducible 144 × 144 scenes. It loads the associated rules, seed, absorbing edges, and memory feedback. New starting patterns include two verified travelers (Diagonal skater and Fast dart), broken concentric rings, opposing fronts, mirrored A/B islands, and a choir of springs at four simulated phases. Their behavior depends on the selected rules; they are not claims of new isolated oscillators.
+**20 looks** opens a searchable preset library with rendered previews and five families:
 
-Flat mode offers tick-based luminous trails, a separate blurred bloom layer, memory contrast, and age coloring. These effects never modify the automaton. The Look controls save named discoveries locally in this browser, including all cell arrays, tick, parameters, palette, rendering settings, camera, speed, and mutation locks. Restore pauses the saved world; presentation history starts fresh. Browser storage limits apply and a failed save preserves existing saves.
+| Family | Presets |
+| --- | --- |
+| Material | Slow Lava, Tidal Glass, Silver Silk, Ink in Water, Mercury Garden, Opal Cells |
+| Atmosphere | Night Bloom, Aurora Veil, Velvet Nebula, Sunwash |
+| Geometry | Moiré Study, Rose Window, Electric Portal, Signal Interference, Chromatic Afterimage |
+| Particles | Stardust, Firefly Trails |
+| Print | Topography, Riso Drift, Paper Cut |
 
-Volume records history only while that view is active. Its state texture uploads only after state changes, paused static frames reuse the existing drawing, and history buffers reuse capacity. Sustained slow frames lower presentation resolution; recovering frame times raise it. A bounded simulation catch-up loop preserves exact ticks while keeping input responsive, so overloaded devices may run below the requested ticks/second.
+Each look is an editable recipe, not a flattened image or a palette swap. Some begin with the existing cellular material; others use procedural fields, with optional modulation from the live automaton. The main Look panel exposes a few parameters from procedural patches rather than showing inactive cellular-material controls.
+
+**Blueprint** opens the patch editor with a live output preview. Add a module from the categorized picker, drag headers to arrange the workspace, and scroll to pan. Zoom buttons and Fit change the view. The graph’s wires determine execution order; the screen positions only arrange the diagram.
+
+- **Image wires** connect sources and effects. Fan out one output into several branches, combine branches with Mixer or Mask, and choose any image node as the final output. Image input dropdowns provide an alternative to clicking ports, including on phones.
+- **Signal wires** connect LFO, Life activity, and Signal math to a numeric parameter’s violet port. The inspector exposes modulation source and signed depth. Signals can modulate other signals; invalid types and dependency cycles are rejected before replacing the current patch.
+- **Echo** provides delayed feedback without allowing a same-frame cycle. It retains the previous rendered frame with adjustable persistence, zoom and rotation. Pausing freezes the synth clock and feedback. Step advances the synth clock by 1/8 second as well as stepping the automaton.
+- Bypass, duplicate, remove, change output, and Undo are available inside the editor. Save patch opens the existing named-discovery flow.
+
+There are **29 reusable primitives**, including **26 image modules and 3 signal modules**:
+
+| Category | Modules |
+| --- | --- |
+| Sources | Living canvas, Cloud field, Oscillator field, Cellular field, Metaballs, Gradient field, Particle field |
+| Space | Displace, Transform, Kaleidoscope, Mirror, Polar lens, Mosaic |
+| Tone | Contours, Cutoff, Color map (12 ramps), Color rotate, Invert, Film grain |
+| Light | Diffuse, Surface light, Bloom, Prism |
+| Mix | Mixer (mix/screen/multiply/add/difference), Mask, Echo |
+| Signals | LFO (sine/triangle/stepped), Life activity, Signal math |
+
+Patches support up to 24 modules. Only nodes reachable from the chosen output are rendered. The GPU pipeline reuses intermediate surfaces as branches finish, and uses half-float surfaces where supported to reduce shading banding. [WebGL half-float rendering specification](https://registry.khronos.org/webgl/extensions/EXT_color_buffer_half_float/). Contour edges use screen-space antialiasing where supported. The synthesizer requires WebGL; the original studio’s Canvas fallback remains available.
+
+Named discoveries and collection JSON backups now include the graph, node positions, connections, modulation depths and synth phase. Previous discoveries remain valid. Echo and organic presentation histories start fresh on restore; they are not embedded in saved JSON. Export preserves the active patch and copies current feedback history to the export renderer. The browser video renderer remains a realtime recording rather than an offline fixed-frame encoder.
+
+### Organic rendering
+
+`src/organic.ts` turns pulse, recovery and memory values into a separate, temporally smoothed density field. A separable Gaussian rounds cellular edges; a continuous spatial lens curves the contours; a fragment shader applies material color, contours, surface normals, highlights and quiet-space masks. A packed 16-bit field reduces shading banding. None of these presentation effects modify the automaton. Presentation history starts fresh when restoring a discovery.
+
+The preview targets 30 frames per second, caps its longest dimension at 1200 pixels and caps pixel ratio at 1.5. Simulation catch-up remains bounded. Devices without WebGL fall back to the original Canvas renderer, including framing and quiet-space effects. The original 3D time-volume is still available via Volume.
+
+### Export
+
+**Export** opens a dedicated render dialog:
+
+- PNG stills at 1920 or 3840 pixels on the longest side (landscape 3840 × 2160, square 3840 × 3840, portrait 2160 × 3840). Organic exports use an additional field sampling pass and render independently of preview resolution.
+- Ten-second motion recordings at 1920 pixels on the longest side, targeting 30 fps and a 14 Mbps video bitrate. MediaRecorder chooses a supported WebM or MP4 encoder. Keep the tab open; rendering and encoding performance depend on the device. These are recordings, not guaranteed seamless loops or offline fixed-frame renders.
+
+Export renders a copy of the simulation and its presentation field, temporarily pauses the preview, and restores transport afterward. No rendering uploads occur. The export contains artwork only. Volume exports are not supported; switch to Surface first. If a browser lacks video capture/encoding, PNG remains available.
 
 ### Reproducible pattern search
 
@@ -94,7 +140,13 @@ These cover the public controls, notes and archive, mobile layout, and optional 
 
 ```text
 src/engine.ts          Pure, synchronous integer update rule
-src/main.ts            Canvas rendering and public controls
+src/main.ts            Studio state, controls, painting and export
+src/studio-ui.ts       Responsive studio layout
+src/organic.ts         Continuous material renderer
+src/patch.ts           Typed patch schema, validation and modulation
+src/synth-renderer.ts  Multipass GPU visual synthesizer
+src/synth-presets.ts   Twenty editable preset recipes
+src/patch-editor.ts    Blueprint editor and preset library
 src/volume.ts          WebGL2 terrain and time-volume renderer
 src/palettes.ts        Shared color palettes for both views
 src/styles.css        Responsive lab styling
