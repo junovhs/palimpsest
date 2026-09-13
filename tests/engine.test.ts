@@ -58,3 +58,20 @@ test('absorbing boundaries zero all three states and parameters reject invalid i
   assert.throws(() => w.configure({ ...PRESETS.cathedral, scale: 0 }), RangeError);
   assert.throws(() => new World(2), RangeError);
 });
+
+test('new spring seeds reproduce complete archived cycles at all certified sizes', async () => {
+  const { NEW_SPRINGS } = await import('../src/springs');
+  const { createHash } = await import('node:crypto');
+  for (const name of Object.keys(NEW_SPRINGS) as Array<keyof typeof NEW_SPRINGS>) {
+    for (const cert of NEW_SPRINGS[name].certificates) {
+      const w = new World(cert.grid, PRESETS.cathedral); w.start(name);
+      for (let t=0;t<cert.transient;t++) w.step();
+      const before = arrays(w);
+      const hash = createHash('sha256').update(w.a).update(w.c).update(w.m).digest('hex');
+      assert.equal(hash, cert.sha256, `${name} at ${cert.grid}`);
+      for (let t=0;t<cert.period;t++) w.step();
+      assert.deepEqual(arrays(w), before);
+      assert.ok(w.counts().positive && w.counts().negative);
+    }
+  }
+});

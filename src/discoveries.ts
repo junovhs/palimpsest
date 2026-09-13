@@ -11,7 +11,7 @@ export function validateDiscovery(value: unknown): asserts value is Discovery {
   const d = value as Discovery;
   if (!d || typeof d.name !== 'string' || d.name.length > 60) throw new Error('Invalid name');
   restore(d.world);
-  if (!['skater', 'dart', 'spring', 'twins', 'islands', 'blank', 'rings', 'crossfire', 'mirror', 'choir', 'chamber12', 'chamber3'].includes(d.pattern) || typeof d.seed !== 'string' || !Number.isInteger(Number(d.seed)) || Number(d.seed) < 1 || Number(d.seed) > 4294967295 || !Object.hasOwn(PALETTES, d.palette)) throw new Error('Invalid starting settings');
+  if (!['spring5', 'spring8', 'spring6b', 'skater', 'dart', 'spring', 'twins', 'islands', 'blank', 'rings', 'crossfire', 'mirror', 'choir', 'chamber12', 'chamber3'].includes(d.pattern) || typeof d.seed !== 'string' || !Number.isInteger(Number(d.seed)) || Number(d.seed) < 1 || Number(d.seed) > 4294967295 || !Object.hasOwn(PALETTES, d.palette)) throw new Error('Invalid starting settings');
   const finite = (v: unknown, lo: number, hi: number) => typeof v === 'number' && Number.isFinite(v) && v >= lo && v <= hi;
   if (!d.flat || !finite(d.flat.trails, 0, 60) || !finite(d.flat.bloom, 0, 150) || !finite(d.flat.contrast, 0, 250) || typeof d.flat.ageColor !== 'boolean') throw new Error('Invalid flat settings');
   if (!d.volume || !finite(d.volume.depth, 0, 256) || !finite(d.volume.relief, 0, .4) || !finite(d.volume.glow, 0, 3) || !finite(d.volume.light, 0, 360) || typeof d.volume.solid !== 'boolean' || typeof d.volume.autoRotate !== 'boolean') throw new Error('Invalid volume settings');

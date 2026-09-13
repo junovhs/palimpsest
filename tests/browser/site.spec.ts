@@ -125,3 +125,23 @@ test('world size, presets, palette, and the 3D volume view work', async ({ page 
   await expect(page.locator('#world')).toBeVisible();
   expect(errors).toEqual([]);
 });
+
+test('new spring atlas and menu restore the verified rule conditions', async ({ page, request }) => {
+  await page.goto('/');
+  await page.locator('#preset').selectOption('estuary');
+  await page.locator('#wrap').check();
+  await page.locator('#memory').uncheck();
+  for (const pattern of ['spring5', 'spring8', 'spring6b']) {
+    await page.locator('#pattern').selectOption(pattern);
+    await expect(page.locator('#preset')).toHaveValue('cathedral');
+    await expect(page.locator('#memory')).toBeChecked();
+    await expect(page.locator('#wrap')).not.toBeChecked();
+    await page.getByRole('button', {name:'Step', exact:true}).click();
+    await expect(page.locator('#tick')).toContainText('1');
+  }
+  await page.getByRole('button', {name:'Five-cell spring', exact:true}).click();
+  await expect(page.locator('#pattern')).toHaveValue('spring5');
+  for (const path of ['spring-hunt.md','spring-hunt.json','spring-hunt-verification.json']) {
+    expect((await request.get('/archive/'+path)).ok()).toBeTruthy();
+  }
+});

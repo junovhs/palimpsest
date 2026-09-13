@@ -1,0 +1,80 @@
+{
+  "independentPythonFullArrayVerification": true,
+  "comparison": "All phases and all three arrays in central 13\u00d713, D4, global sign reversal, translations \u00b14; finite observed source neighborhoods only.",
+  "sourceRepresentatives": [
+    "original spring",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11"
+  ],
+  "comparisons": [
+    {
+      "candidate": "original spring",
+      "matches": null
+    },
+    {
+      "candidate": "symmetry control",
+      "matches": {
+        "representative": "original spring",
+        "mirror": false,
+        "rotation": 90,
+        "dx": 0,
+        "dy": -2,
+        "sign": 1,
+        "phase": 13
+      }
+    },
+    {
+      "candidate": "1",
+      "matches": null
+    },
+    {
+      "candidate": "2",
+      "matches": null
+    },
+    {
+      "candidate": "3",
+      "matches": null
+    },
+    {
+      "candidate": "4",
+      "matches": null
+    },
+    {
+      "candidate": "5",
+      "matches": null
+    },
+    {
+      "candidate": "6",
+      "matches": null
+    },
+    {
+      "candidate": "7",
+      "matches": null
+    },
+    {
+      "candidate": "8",
+      "matches": null
+    },
+    {
+      "candidate": "9",
+      "matches": null
+    },
+    {
+      "candidate": "10",
+      "matches": null
+    },
+    {
+      "candidate": "11",
+      "matches": null
+    }
+  ]
+}

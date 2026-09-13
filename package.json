@@ -11,6 +11,7 @@
     "test": "tsx --test tests/engine.test.ts tests/playground.test.ts",
     "test:e2e": "playwright test",
     "hunt": "tsx scripts/hunt.ts && tsx scripts/travelers.ts",
+    "hunt:springs": "tsx scripts/springs.ts",
     "verify": "tsx scripts/verify.ts"
   },
   "devDependencies": {

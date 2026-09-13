@@ -85,3 +85,7 @@ The verifier independently regenerates the exact-cycle certificates and the comp
 Excitable cellular automata and memory in such systems are established research areas: see [Fisch, Gravner, and Griffeath, Threshold-Range Scaling of Excitable Cellular Automata](https://arxiv.org/abs/patt-sol/9304001), [Adamatzky and Chua, Phenomenology of retained refractoriness](https://arxiv.org/abs/1111.3525), and [Alonso-Sanz and Adamatzky, On Memory and Structural Dynamism in Excitable Cellular Automata with Defensive Inhibition](https://arxiv.org/abs/1212.2821).
 
 Those connections were checked during this session. The exact rule and six-cell behavior have not undergone an exhaustive literature review. The substantive output is the inspectable rule, reproducible oscillator, verified transition, and a visual playground—not a claim that memory automata or oscillators were invented here.
+
+## Follow-up search — September 12, 2026
+
+An expanded search using this same method found 11 additional 26-tick source variants, including a five-cell seed with different positions and timers. The original six-cell subset test did not exclude this. All 11 have independent full-state certificates at three sizes. See the [new search record](spring-hunt.md) for seeds, bounds, comparisons, and reproduction commands.

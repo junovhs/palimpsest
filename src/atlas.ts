@@ -1,5 +1,8 @@
 import { PRESETS, World, type Pattern, type Preset } from './engine';
 export const ATLAS: Array<{ name: string; rule: Preset; pattern: Pattern; note: string }> = [
+  { name: 'Five-cell spring', rule: 'cathedral', pattern: 'spring5', note: 'five starting cells; verified 26-tick source' },
+  { name: 'Eight-cell spring', rule: 'cathedral', pattern: 'spring8', note: 'a distinct 26-tick source neighborhood' },
+  { name: 'Retimed spring', rule: 'cathedral', pattern: 'spring6b', note: 'one timer change produces a different sustained source' },
   { name: 'Skater', rule: 'loom', pattern: 'skater', note: 'diagonal traveler' },
   { name: 'Dart', rule: 'comets', pattern: 'dart', note: 'fast traveler' },
   { name: 'Ripple', rule: 'comets', pattern: 'rings', note: 'concentric waves' },

@@ -1,3 +1,4 @@
+import { NEW_SPRINGS } from './springs';
 import { TRAVELERS } from './traveler';
 import { SPECIMENS } from './specimens';
 
@@ -22,7 +23,7 @@ export const PRESETS = {
   filigree: { rest: 2, cap: 62, ink: 18, scale: 2, threshold: 7, crowd: 3 },
 } satisfies Record<string, Parameters>;
 export type Preset = keyof typeof PRESETS;
-export type Pattern = 'skater' | 'dart' | 'chamber12' | 'chamber3' | 'spring' | 'twins' | 'islands' | 'rings' | 'crossfire' | 'mirror' | 'choir' | 'blank';
+export type Pattern = keyof typeof NEW_SPRINGS | 'skater' | 'dart' | 'chamber12' | 'chamber3' | 'spring' | 'twins' | 'islands' | 'rings' | 'crossfire' | 'mirror' | 'choir' | 'blank';
 export type Brush = 'spring' | 'a' | 'b' | 'shock' | 'favor-a' | 'favor-b' | 'erase';
 export const LIMITS: Record<keyof Parameters, readonly [number, number]> = {
   rest: [1, 10], cap: [8, 128], ink: [0, 64], scale: [1, 12], threshold: [1, 14], crowd: [1, 8],
@@ -80,7 +81,9 @@ export class World {
 
   start(pattern: Pattern, seed = 17) {
     this.clear();
-    if (pattern === 'skater' || pattern === 'dart') {
+    if (pattern === 'spring5' || pattern === 'spring8' || pattern === 'spring6b') {
+      for (const [x,y,a,c] of NEW_SPRINGS[pattern].seed) { const i = (Math.floor(this.n/2)+y)*this.n+Math.floor(this.n/2)+x; this.a[i]=a; this.c[i]=c; }
+    } else if (pattern === 'skater' || pattern === 'dart') {
       for (const [x, y, a, c] of TRAVELERS[pattern].seed) { const i = (Math.floor(this.n / 2) + y) * this.n + Math.floor(this.n / 2) + x; this.a[i] = a; this.c[i] = c; }
     } else if (pattern === 'chamber12' || pattern === 'chamber3') {
       for (const [x, y, a, c] of SPECIMENS[pattern].seed) { const i = (Math.floor(this.n / 2) + y) * this.n + Math.floor(this.n / 2) + x; this.a[i] = a; this.c[i] = c; }

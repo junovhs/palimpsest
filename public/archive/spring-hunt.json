@@ -1,0 +1,1503 @@
+{
+  "method": "Original sustained-core/two-type screening: 1800 deterministic 3×3 A/recovery seeds (600 per original preset), plus 150 single-site spring replacements in a 5×5 neighborhood. Zero initial memory, absorbing edges, 48×48, 300 ticks; final 100 ticks require active center and some B. Exact full-state cycles checked to 1600 ticks. Source fingerprints quotient central 13×13 phase, D4 and sign reversal, but not translations. Greedy deletion preserves fingerprint. Surviving seeds certified independently at 48, 96 and 192.",
+  "randomSeed": 8242026,
+  "tested": 1950,
+  "passed": 95,
+  "equivalent": 84,
+  "unresolved": 0,
+  "baseline": {
+    "grid": 48,
+    "transient": 39,
+    "period": 26,
+    "repeat": 65,
+    "sha256": "1ae49f64bbdfa73b6dee36799036c377b0c0ba3edfabc43f1630e532cafa8f80",
+    "active": 355,
+    "exactArraysVerified": true
+  },
+  "found": [
+    {
+      "preset": "cathedral",
+      "origin": "random-3x3-41",
+      "seed": [
+        [
+          -1,
+          0,
+          0,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          4
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ]
+      ],
+      "survival": {
+        "firstB": 6,
+        "minCore": 15,
+        "twoTypeTicks": 100
+      },
+      "certificate": {
+        "grid": 48,
+        "transient": 52,
+        "period": 26,
+        "repeat": 78,
+        "sha256": "4101ed29df1aea328476643f3d9e4f42da9ed09437ea49c76d767634f52a89e2",
+        "active": 360,
+        "exactArraysVerified": true
+      },
+      "signature": "cathedral:003b552c9dd1baa51840526fafface180a909b0a18c3807f5fa1c829550b17da",
+      "originalSeed": [
+        [
+          0,
+          -1,
+          0,
+          2
+        ],
+        [
+          -1,
+          0,
+          0,
+          3
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          1,
+          0
+        ],
+        [
+          -1,
+          1,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          0,
+          4
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ]
+      ],
+      "certificates": [
+        {
+          "grid": 48,
+          "transient": 52,
+          "period": 26,
+          "repeat": 78,
+          "sha256": "4101ed29df1aea328476643f3d9e4f42da9ed09437ea49c76d767634f52a89e2",
+          "active": 360,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 96,
+          "transient": 76,
+          "period": 26,
+          "repeat": 102,
+          "sha256": "fc7d971e0d40e357f589d905a07c4ec48c73cce59f1a655b96117ab9c7982c73",
+          "active": 1440,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 192,
+          "transient": 124,
+          "period": 26,
+          "repeat": 150,
+          "sha256": "28afc5cd2597f83888c48103a3ebc35907e3b835447e63440cc04f63c51d54a8",
+          "active": 5708,
+          "exactArraysVerified": true
+        }
+      ]
+    },
+    {
+      "preset": "cathedral",
+      "origin": "random-3x3-225",
+      "seed": [
+        [
+          -1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          -1,
+          0,
+          2
+        ],
+        [
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          -1,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          1,
+          0
+        ],
+        [
+          -1,
+          1,
+          0,
+          3
+        ],
+        [
+          0,
+          1,
+          0,
+          2
+        ],
+        [
+          1,
+          1,
+          0,
+          3
+        ]
+      ],
+      "survival": {
+        "firstB": 6,
+        "minCore": 13,
+        "twoTypeTicks": 100
+      },
+      "certificate": {
+        "grid": 48,
+        "transient": 37,
+        "period": 26,
+        "repeat": 63,
+        "sha256": "46feec64a312ead349918a6732359edf315d97f609b47bf8598c9a0b37352bb0",
+        "active": 295,
+        "exactArraysVerified": true
+      },
+      "signature": "cathedral:035b6103d06d4a36cd88b5ad5b7242a5de8dea82619741aadb920749992926c3",
+      "originalSeed": [
+        [
+          -1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          -1,
+          0,
+          2
+        ],
+        [
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          -1,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          1,
+          0
+        ],
+        [
+          -1,
+          1,
+          0,
+          3
+        ],
+        [
+          0,
+          1,
+          0,
+          2
+        ],
+        [
+          1,
+          1,
+          0,
+          3
+        ]
+      ],
+      "certificates": [
+        {
+          "grid": 48,
+          "transient": 37,
+          "period": 26,
+          "repeat": 63,
+          "sha256": "46feec64a312ead349918a6732359edf315d97f609b47bf8598c9a0b37352bb0",
+          "active": 295,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 96,
+          "transient": 61,
+          "period": 26,
+          "repeat": 87,
+          "sha256": "9c9c97de6a1a19a1eed185b07b58b49eb6184be043d1d54eca421283eaeb0886",
+          "active": 1286,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 192,
+          "transient": 109,
+          "period": 26,
+          "repeat": 135,
+          "sha256": "711a31d1bc5f56a5454d7a653e10232ac803eff0f0353da532385065b12579b0",
+          "active": 5404,
+          "exactArraysVerified": true
+        }
+      ]
+    },
+    {
+      "preset": "cathedral",
+      "origin": "spring-replacement-0,-2,3",
+      "seed": [
+        [
+          0,
+          -1,
+          0,
+          3
+        ],
+        [
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          -2,
+          0,
+          3
+        ]
+      ],
+      "survival": {
+        "firstB": 6,
+        "minCore": 14,
+        "twoTypeTicks": 100
+      },
+      "certificate": {
+        "grid": 48,
+        "transient": 39,
+        "period": 26,
+        "repeat": 65,
+        "sha256": "52b9424fb2f4c61df2ccddd62952c1a163ddbe7c228863667e6078e9e0aaa356",
+        "active": 355,
+        "exactArraysVerified": true
+      },
+      "signature": "cathedral:0072c50c1dcdc8efa0f12c7b0c5b207c86a395a3cc99a2e2287e8096a7731eb6",
+      "originalSeed": [
+        [
+          0,
+          -1,
+          0,
+          3
+        ],
+        [
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          -2,
+          0,
+          3
+        ]
+      ],
+      "certificates": [
+        {
+          "grid": 48,
+          "transient": 39,
+          "period": 26,
+          "repeat": 65,
+          "sha256": "52b9424fb2f4c61df2ccddd62952c1a163ddbe7c228863667e6078e9e0aaa356",
+          "active": 355,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 96,
+          "transient": 63,
+          "period": 26,
+          "repeat": 89,
+          "sha256": "9d8ff9ba8ec35086f1d1d30feb4102b01205cf9ba50f963eb65b1396d9930b57",
+          "active": 1431,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 192,
+          "transient": 111,
+          "period": 26,
+          "repeat": 137,
+          "sha256": "e44473c93bc5cb9590645ff060d2ff2deaef7b802036873bbbe22ac9889e1b82",
+          "active": 5680,
+          "exactArraysVerified": true
+        }
+      ]
+    },
+    {
+      "preset": "cathedral",
+      "origin": "spring-replacement-2,-2,2",
+      "seed": [
+        [
+          0,
+          -1,
+          0,
+          3
+        ],
+        [
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          -2,
+          0,
+          2
+        ]
+      ],
+      "survival": {
+        "firstB": 6,
+        "minCore": 14,
+        "twoTypeTicks": 100
+      },
+      "certificate": {
+        "grid": 48,
+        "transient": 39,
+        "period": 26,
+        "repeat": 65,
+        "sha256": "3eed3ede59e076e0e734c123e12a68f4730bcd2b60bafc8f91e96de0761b72e4",
+        "active": 355,
+        "exactArraysVerified": true
+      },
+      "signature": "cathedral:0108d90af58232483a8d93849776d398363eeddcd913f937a071ae0ac5dbc9c2",
+      "originalSeed": [
+        [
+          0,
+          -1,
+          0,
+          3
+        ],
+        [
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          -2,
+          0,
+          2
+        ]
+      ],
+      "certificates": [
+        {
+          "grid": 48,
+          "transient": 39,
+          "period": 26,
+          "repeat": 65,
+          "sha256": "3eed3ede59e076e0e734c123e12a68f4730bcd2b60bafc8f91e96de0761b72e4",
+          "active": 355,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 96,
+          "transient": 63,
+          "period": 26,
+          "repeat": 89,
+          "sha256": "968d74c0059c0550aa818fadea1b7f84b6de8353ccd31b950d9e56bd1f72bb04",
+          "active": 1429,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 192,
+          "transient": 111,
+          "period": 26,
+          "repeat": 137,
+          "sha256": "331f0009e71b7431b774d0ebc320423147bf0afd5a9a34e15c2167ccc0a5b49b",
+          "active": 5680,
+          "exactArraysVerified": true
+        }
+      ]
+    },
+    {
+      "preset": "cathedral",
+      "origin": "spring-replacement-2,-2,4",
+      "seed": [
+        [
+          0,
+          -1,
+          0,
+          3
+        ],
+        [
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          -2,
+          0,
+          4
+        ]
+      ],
+      "survival": {
+        "firstB": 6,
+        "minCore": 18,
+        "twoTypeTicks": 100
+      },
+      "certificate": {
+        "grid": 48,
+        "transient": 68,
+        "period": 26,
+        "repeat": 94,
+        "sha256": "3e561d54a7289234817fcde73488e5d6eab8bff2b4fbd798d8556ed3f0955536",
+        "active": 282,
+        "exactArraysVerified": true
+      },
+      "signature": "cathedral:0083d1ba00e29f9f34275792c96e3da15d2ce0c2b983b46cc274e1c4cc309da4",
+      "originalSeed": [
+        [
+          0,
+          -1,
+          0,
+          3
+        ],
+        [
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          -2,
+          0,
+          4
+        ]
+      ],
+      "certificates": [
+        {
+          "grid": 48,
+          "transient": 68,
+          "period": 26,
+          "repeat": 94,
+          "sha256": "3e561d54a7289234817fcde73488e5d6eab8bff2b4fbd798d8556ed3f0955536",
+          "active": 282,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 96,
+          "transient": 92,
+          "period": 26,
+          "repeat": 118,
+          "sha256": "bd5f568df8bda31978971c1336cfb83dbacd67c55fdeae7ce1d46d0ca0510f02",
+          "active": 1269,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 192,
+          "transient": 140,
+          "period": 26,
+          "repeat": 166,
+          "sha256": "4f7eae7cb84c2b914552da965eb14ea172e96514a4841ba6cd4917407f2b1a04",
+          "active": 5368,
+          "exactArraysVerified": true
+        }
+      ]
+    },
+    {
+      "preset": "cathedral",
+      "origin": "spring-replacement-2,-2,5",
+      "seed": [
+        [
+          0,
+          -1,
+          0,
+          3
+        ],
+        [
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          -2,
+          1,
+          0
+        ]
+      ],
+      "survival": {
+        "firstB": 6,
+        "minCore": 14,
+        "twoTypeTicks": 100
+      },
+      "certificate": {
+        "grid": 48,
+        "transient": 39,
+        "period": 26,
+        "repeat": 65,
+        "sha256": "9cb9f4be69b26d280ef7f2e04bcaa9e183e3498241da328fa15bc0fd02ec5017",
+        "active": 352,
+        "exactArraysVerified": true
+      },
+      "signature": "cathedral:00a7b5f1ed43b5468e213e8a102098478e9f4c8a9e5150c9a78bb8d7dbf73c39",
+      "originalSeed": [
+        [
+          0,
+          -1,
+          0,
+          3
+        ],
+        [
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          -2,
+          1,
+          0
+        ]
+      ],
+      "certificates": [
+        {
+          "grid": 48,
+          "transient": 39,
+          "period": 26,
+          "repeat": 65,
+          "sha256": "9cb9f4be69b26d280ef7f2e04bcaa9e183e3498241da328fa15bc0fd02ec5017",
+          "active": 352,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 96,
+          "transient": 63,
+          "period": 26,
+          "repeat": 89,
+          "sha256": "3892a92fd4ef482172b933087ce19ba90709b5d2ef627876089e44d741e3f9ea",
+          "active": 1422,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 192,
+          "transient": 111,
+          "period": 26,
+          "repeat": 137,
+          "sha256": "52cf3d1aa30a33ccc0a650dd163611fd45294788292a17244bc868e36f610550",
+          "active": 5666,
+          "exactArraysVerified": true
+        }
+      ]
+    },
+    {
+      "preset": "cathedral",
+      "origin": "spring-replacement--1,-1,4",
+      "seed": [
+        [
+          0,
+          -1,
+          0,
+          3
+        ],
+        [
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          -1,
+          -1,
+          0,
+          4
+        ]
+      ],
+      "survival": {
+        "firstB": 6,
+        "minCore": 14,
+        "twoTypeTicks": 100
+      },
+      "certificate": {
+        "grid": 48,
+        "transient": 39,
+        "period": 26,
+        "repeat": 65,
+        "sha256": "4de974f5dac5456823f0f1d1d353493bba5e29931c45ead470dfee9e1f3b7f6f",
+        "active": 355,
+        "exactArraysVerified": true
+      },
+      "signature": "cathedral:0403a7c5ac3b2a0c6513d9a57d8edf99e6b08f78ab546e52ee7d24e4e2d27f57",
+      "originalSeed": [
+        [
+          0,
+          -1,
+          0,
+          3
+        ],
+        [
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          -1,
+          -1,
+          0,
+          4
+        ]
+      ],
+      "certificates": [
+        {
+          "grid": 48,
+          "transient": 39,
+          "period": 26,
+          "repeat": 65,
+          "sha256": "4de974f5dac5456823f0f1d1d353493bba5e29931c45ead470dfee9e1f3b7f6f",
+          "active": 355,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 96,
+          "transient": 63,
+          "period": 26,
+          "repeat": 89,
+          "sha256": "c1811d1a126fdbab0454febe76caf1fb8fc155d17ed70a442af22dc0030e8930",
+          "active": 1430,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 192,
+          "transient": 111,
+          "period": 26,
+          "repeat": 137,
+          "sha256": "a7ef672dd98fa624e16da3f3d468fb7d30f5278dbcf8e6146e16aecccb2aea9a",
+          "active": 5680,
+          "exactArraysVerified": true
+        }
+      ]
+    },
+    {
+      "preset": "cathedral",
+      "origin": "spring-replacement-0,-1,4",
+      "seed": [
+        [
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          -1,
+          0,
+          4
+        ]
+      ],
+      "survival": {
+        "firstB": 6,
+        "minCore": 9,
+        "twoTypeTicks": 100
+      },
+      "certificate": {
+        "grid": 48,
+        "transient": 39,
+        "period": 26,
+        "repeat": 65,
+        "sha256": "65e51440775000f7797e859762e096860539090c24114a35e8c8077567afb9cb",
+        "active": 330,
+        "exactArraysVerified": true
+      },
+      "signature": "cathedral:00820597e8dc2998e695bc640269e20b660f43535b4927c8f18d6ed6d38c9a64",
+      "originalSeed": [
+        [
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          -1,
+          0,
+          4
+        ]
+      ],
+      "certificates": [
+        {
+          "grid": 48,
+          "transient": 39,
+          "period": 26,
+          "repeat": 65,
+          "sha256": "65e51440775000f7797e859762e096860539090c24114a35e8c8077567afb9cb",
+          "active": 330,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 96,
+          "transient": 63,
+          "period": 26,
+          "repeat": 89,
+          "sha256": "32532be43287fc935c41542f90b6a50493b812120515566d57a4906c5e5ff177",
+          "active": 1377,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 192,
+          "transient": 111,
+          "period": 26,
+          "repeat": 137,
+          "sha256": "6388def2c501ccae0d4dd5e6b148beac672b17dc4b42303c6e47208f80f8fe4f",
+          "active": 5578,
+          "exactArraysVerified": true
+        }
+      ]
+    },
+    {
+      "preset": "cathedral",
+      "origin": "spring-replacement-2,-1,5",
+      "seed": [
+        [
+          0,
+          -1,
+          0,
+          3
+        ],
+        [
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          -1,
+          1,
+          0
+        ]
+      ],
+      "survival": {
+        "firstB": 6,
+        "minCore": 16,
+        "twoTypeTicks": 100
+      },
+      "certificate": {
+        "grid": 48,
+        "transient": 39,
+        "period": 26,
+        "repeat": 65,
+        "sha256": "66c780a5a22a223b69d53102045f44afe5b52d52be99b4403d56554b3571aaec",
+        "active": 329,
+        "exactArraysVerified": true
+      },
+      "signature": "cathedral:012ddf9af264b8e773dd32f89530668dcb61376879201383d2772fff648ee1c1",
+      "originalSeed": [
+        [
+          0,
+          -1,
+          0,
+          3
+        ],
+        [
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          -1,
+          1,
+          0
+        ]
+      ],
+      "certificates": [
+        {
+          "grid": 48,
+          "transient": 39,
+          "period": 26,
+          "repeat": 65,
+          "sha256": "66c780a5a22a223b69d53102045f44afe5b52d52be99b4403d56554b3571aaec",
+          "active": 329,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 96,
+          "transient": 63,
+          "period": 26,
+          "repeat": 89,
+          "sha256": "926e9574ef411a1efd7a8052769a4910962476941a7a62625ab7dfb786ace091",
+          "active": 1377,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 192,
+          "transient": 111,
+          "period": 26,
+          "repeat": 137,
+          "sha256": "da57dee5969200575a24bb2d2049833f98a739cd16c761632f3423b295921767",
+          "active": 5579,
+          "exactArraysVerified": true
+        }
+      ]
+    },
+    {
+      "preset": "cathedral",
+      "origin": "spring-replacement--1,0,3",
+      "seed": [
+        [
+          0,
+          -1,
+          0,
+          3
+        ],
+        [
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          -1,
+          0,
+          0,
+          3
+        ]
+      ],
+      "survival": {
+        "firstB": 6,
+        "minCore": 16,
+        "twoTypeTicks": 100
+      },
+      "certificate": {
+        "grid": 48,
+        "transient": 52,
+        "period": 26,
+        "repeat": 78,
+        "sha256": "a8117423359d1fd0abcf80988b75f5199f141f7a41786a6eadb1f2b780e1be40",
+        "active": 366,
+        "exactArraysVerified": true
+      },
+      "signature": "cathedral:00cabf6fb87f6fb20a237d2397cafecdad7b79215bd65d81e033c0f847019e27",
+      "originalSeed": [
+        [
+          0,
+          -1,
+          0,
+          3
+        ],
+        [
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          -1,
+          0,
+          0,
+          3
+        ]
+      ],
+      "certificates": [
+        {
+          "grid": 48,
+          "transient": 52,
+          "period": 26,
+          "repeat": 78,
+          "sha256": "a8117423359d1fd0abcf80988b75f5199f141f7a41786a6eadb1f2b780e1be40",
+          "active": 366,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 96,
+          "transient": 76,
+          "period": 26,
+          "repeat": 102,
+          "sha256": "4c0765bd7c9dd27cf7081d0986bb4f5f7a8b13670a98621c7031e62da25bfff5",
+          "active": 1456,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 192,
+          "transient": 124,
+          "period": 26,
+          "repeat": 150,
+          "sha256": "45c6d2620eb6db9fb9ff45597947014f9b99fd598e60275283e75cf373238a4e",
+          "active": 5736,
+          "exactArraysVerified": true
+        }
+      ]
+    },
+    {
+      "preset": "cathedral",
+      "origin": "spring-replacement-2,0,5",
+      "seed": [
+        [
+          0,
+          -1,
+          0,
+          3
+        ],
+        [
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          0,
+          1,
+          0
+        ]
+      ],
+      "survival": {
+        "firstB": 6,
+        "minCore": 14,
+        "twoTypeTicks": 100
+      },
+      "certificate": {
+        "grid": 48,
+        "transient": 39,
+        "period": 26,
+        "repeat": 65,
+        "sha256": "5f865d5268167a29d5910b817e373ee349d1ce5125f8e86e457e466d4a79a3aa",
+        "active": 361,
+        "exactArraysVerified": true
+      },
+      "signature": "cathedral:0061324a24db8a1dc7a0c33d5a6f1e98dc8b0aec2fa6b39944d77dc87852db99",
+      "originalSeed": [
+        [
+          0,
+          -1,
+          0,
+          3
+        ],
+        [
+          1,
+          -1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4
+        ],
+        [
+          1,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          0,
+          3
+        ],
+        [
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          0,
+          1,
+          0
+        ]
+      ],
+      "certificates": [
+        {
+          "grid": 48,
+          "transient": 39,
+          "period": 26,
+          "repeat": 65,
+          "sha256": "5f865d5268167a29d5910b817e373ee349d1ce5125f8e86e457e466d4a79a3aa",
+          "active": 361,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 96,
+          "transient": 63,
+          "period": 26,
+          "repeat": 89,
+          "sha256": "1c47ed950a41fb5a00307bc485fdb1a4d9260f103616771ec04e37ca3f297124",
+          "active": 1443,
+          "exactArraysVerified": true
+        },
+        {
+          "grid": 192,
+          "transient": 111,
+          "period": 26,
+          "repeat": 137,
+          "sha256": "4e112562de0c5bdb4f47fea557ce3402955547898d95460f08e8ed422deb2872",
+          "active": 5711,
+          "exactArraysVerified": true
+        }
+      ]
+    }
+  ]
+}

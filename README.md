@@ -38,13 +38,15 @@ The six rules open at the top of the controls. **Mutate slightly** changes only 
 
 **Painting** now includes adjustable-radius shockwaves, A/B pulse beams, memory fields that favor either pulse type, and an eraser. Memory force controls how strongly a brush primes the ground. Dragging interpolates stamps for continuous strokes; holding a brush down reapplies it after each simulation tick. A cursor shows the footprint, and [ / ] resize it while the canvas is focused. One stroke is one undo moment. Brushes clip at absorbing boundaries and cross edges when wrapping is enabled.
 
-The **Pattern atlas** contains actual tick-48 previews of eleven reproducible 144 × 144 scenes. It loads the associated rules, seed, absorbing edges, and memory feedback. New starting patterns include two verified travelers (Diagonal skater and Fast dart), broken concentric rings, opposing fronts, mirrored A/B islands, and a choir of springs at four simulated phases. Their behavior depends on the selected rules; they are not claims of new isolated oscillators.
+The **Pattern atlas** contains actual tick-48 previews of fourteen reproducible 144 × 144 scenes. It loads the associated rules, seed, absorbing edges, and memory feedback. New starting patterns include two verified travelers (Diagonal skater and Fast dart), broken concentric rings, opposing fronts, mirrored A/B islands, and a choir of springs at four simulated phases. Their behavior depends on the selected rules; they are not claims of new isolated oscillators.
 
 Flat mode offers tick-based luminous trails, a separate blurred bloom layer, memory contrast, and age coloring. These effects never modify the automaton. The Look controls save named discoveries locally in this browser, including all cell arrays, tick, parameters, palette, rendering settings, camera, speed, and mutation locks. Restore pauses the saved world; presentation history starts fresh. Browser storage limits apply and a failed save preserves existing saves.
 
 Volume records history only while that view is active. Its state texture uploads only after state changes, paused static frames reuse the existing drawing, and history buffers reuse capacity. Sustained slow frames lower presentation resolution; recovering frame times raise it. A bounded simulation catch-up loop preserves exact ticks while keeping input responsive, so overloaded devices may run below the requested ticks/second.
 
 ### Reproducible pattern search
+
+A follow-up using the original spring discovery method tested 1,950 seeds and found **11 additional 26-tick source variants**, including a **five-cell spring**. Independent Python checks confirm full-state recurrence at 48×48, 96×96 and 192×192. Three examples are available in the atlas and pattern menu. These are distinct tested source neighborhoods, not new periods or globally minimal patterns. See the [expanded search record and seed diagrams](public/archive/spring-hunt.md). Reproduce with `npm run hunt:springs` and `python3 reference/verify_springs.py`.
 
 ```sh
 npm run hunt
