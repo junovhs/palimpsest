@@ -73,7 +73,13 @@ export class Volume {
   private state!: WebGLTexture;
   private stateBytes = new Uint8Array(0);
   private n = 0;
-  private layers: Array<{ buffer: WebGLBuffer; count: number; tick: number }> = [];
+  private dirty = true;
+  private lastRender = '';
+  private quality = 1;
+  private slowFrames = 0;
+  private fastFrames = 0;
+  invalidate() { this.dirty = true; this.lastRender = ''; }
+  private layers: Array<{ buffer: WebGLBuffer; count: number; tick: number; capacity: number }> = [];
   private head = 0; private filled = 0;
   private scratch = new Uint32Array(0);
   private pointers = new Map<number, { x: number; y: number }>();
@@ -102,14 +108,14 @@ export class Volume {
     gl.bindTexture(gl.TEXTURE_2D, this.state);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-    for (let i = 0; i < MAX_DEPTH; i++) this.layers.push({ buffer: gl.createBuffer()!, count: 0, tick: -1 });
+    for (let i = 0; i < MAX_DEPTH; i++) this.layers.push({ buffer: gl.createBuffer()!, count: 0, tick: -1, capacity: 0 });
     gl.enable(gl.DEPTH_TEST); gl.enable(gl.CULL_FACE);
     this.bindPointer();
   }
 
   /** Call whenever the grid size changes. Clears history. */
   attach(world: World) {
-    this.n = world.n;
+    this.n = world.n; this.invalidate();
     this.stateBytes = new Uint8Array(world.n * world.n * 4);
     this.scratch = new Uint32Array(world.n * world.n);
     this.head = 0; this.filled = 0;
@@ -119,17 +125,22 @@ export class Volume {
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, world.n, world.n, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
   }
 
-  clearHistory() { this.head = 0; this.filled = 0; }
+  clearHistory() { this.head = 0; this.filled = 0; this.invalidate(); }
 
   /** Push the current tick's active cells into the history ring. Call after each step. */
   record(world: World) {
     if (!this.available || this.n !== world.n) return;
+    this.invalidate();
     const { a } = world; const list = this.scratch; let count = 0;
     for (let i = 0; i < a.length; i++) { if (a[i] === 1) list[count++] = i; else if (a[i] === -1) list[count++] = i | 0x80000000; }
     const layer = this.layers[this.head];
     const gl = this.gl;
     gl.bindBuffer(gl.ARRAY_BUFFER, layer.buffer);
-    gl.bufferData(gl.ARRAY_BUFFER, list.subarray(0, count), gl.DYNAMIC_DRAW);
+    if (count > layer.capacity) {
+      layer.capacity = Math.min(world.a.length, Math.max(count, Math.ceil(layer.capacity * 1.5), 64));
+      gl.bufferData(gl.ARRAY_BUFFER, layer.capacity * 4, gl.DYNAMIC_DRAW);
+    }
+    if (count) gl.bufferSubData(gl.ARRAY_BUFFER, 0, list.subarray(0, count));
     layer.count = count; layer.tick = world.t;
     this.head = (this.head + 1) % MAX_DEPTH; this.filled = Math.min(this.filled + 1, MAX_DEPTH);
   }
@@ -137,22 +148,32 @@ export class Volume {
   render(world: World, palette: Palette, elapsed: number) {
     if (!this.available || this.n !== world.n) return;
     const gl = this.gl, { canvas } = this, o = this.options;
-    const dpr = Math.min(devicePixelRatio || 1, canvas.clientWidth < 700 ? 1.5 : 2);
+    // Adapt only presentation resolution after sustained slow frames; simulation stays exact.
+    if (elapsed > 28 && elapsed <= 150) { this.slowFrames++; this.fastFrames = 0; }
+    else if (elapsed > 0 && elapsed < 20) { this.fastFrames++; this.slowFrames = 0; }
+    if (this.slowFrames >= 45) { this.quality = Math.max(.5, this.quality - .125); this.slowFrames = 0; }
+    if (this.fastFrames >= 240) { this.quality = Math.min(1, this.quality + .125); this.fastFrames = 0; }
+    const dpr = Math.min(devicePixelRatio || 1, canvas.clientWidth < 700 ? 1.5 : 2) * this.quality;
     const w = Math.max(1, Math.round(canvas.clientWidth * dpr)), h = Math.max(1, Math.round(canvas.clientHeight * dpr));
     if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
+    if (o.autoRotate) this.yaw += elapsed * 0.00025;
+    const signature = [w, h, this.yaw, this.pitch, this.distance, ...Object.values(o), ...palette.background, ...palette.pulseA].join(',');
+    if (!this.dirty && signature === this.lastRender) return;
+    this.lastRender = signature;
     gl.viewport(0, 0, w, h);
     const bg = palette.background;
     gl.clearColor(bg[0] / 255 * .6, bg[1] / 255 * .6, bg[2] / 255 * .6, 1);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    if (o.autoRotate) this.yaw += elapsed * 0.00025;
-
     // State texture: R = pulse (a+1)*127, G = recovery fraction, B = memory fraction.
+    if (this.dirty) {
     const { a, c, m, p } = world; const bytes = this.stateBytes;
     for (let i = 0; i < a.length; i++) {
       bytes[i * 4] = (a[i] + 1) * 127; bytes[i * 4 + 1] = c[i] / p.rest * 255; bytes[i * 4 + 2] = (m[i] / p.cap * .5 + .5) * 255; bytes[i * 4 + 3] = 255;
     }
     gl.bindTexture(gl.TEXTURE_2D, this.state);
     gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, this.n, this.n, gl.RGBA, gl.UNSIGNED_BYTE, bytes);
+    this.dirty = false;
+    }
 
     const viewProj = this.camera(w / h);
     const rad = o.light * Math.PI / 180;

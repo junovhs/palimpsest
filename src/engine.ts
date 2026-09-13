@@ -1,3 +1,6 @@
+import { TRAVELERS } from './traveler';
+import { SPECIMENS } from './specimens';
+
 /** Integer, synchronous cellular automaton. Rendering never changes its state. */
 export interface Parameters {
   rest: number;
@@ -19,8 +22,8 @@ export const PRESETS = {
   filigree: { rest: 2, cap: 62, ink: 18, scale: 2, threshold: 7, crowd: 3 },
 } satisfies Record<string, Parameters>;
 export type Preset = keyof typeof PRESETS;
-export type Pattern = 'spring' | 'twins' | 'islands' | 'blank';
-export type Brush = 'spring' | 'a' | 'b' | 'erase';
+export type Pattern = 'skater' | 'dart' | 'chamber12' | 'chamber3' | 'spring' | 'twins' | 'islands' | 'rings' | 'crossfire' | 'mirror' | 'choir' | 'blank';
+export type Brush = 'spring' | 'a' | 'b' | 'shock' | 'favor-a' | 'favor-b' | 'erase';
 export const LIMITS: Record<keyof Parameters, readonly [number, number]> = {
   rest: [1, 10], cap: [8, 128], ink: [0, 64], scale: [1, 12], threshold: [1, 14], crowd: [1, 8],
 };
@@ -77,11 +80,51 @@ export class World {
 
   start(pattern: Pattern, seed = 17) {
     this.clear();
-    if (pattern === 'spring') this.stampSpring(Math.floor(this.n / 2), Math.floor(this.n / 2));
+    if (pattern === 'skater' || pattern === 'dart') {
+      for (const [x, y, a, c] of TRAVELERS[pattern].seed) { const i = (Math.floor(this.n / 2) + y) * this.n + Math.floor(this.n / 2) + x; this.a[i] = a; this.c[i] = c; }
+    } else if (pattern === 'chamber12' || pattern === 'chamber3') {
+      for (const [x, y, a, c] of SPECIMENS[pattern].seed) { const i = (Math.floor(this.n / 2) + y) * this.n + Math.floor(this.n / 2) + x; this.a[i] = a; this.c[i] = c; }
+    } else if (pattern === 'spring') this.stampSpring(Math.floor(this.n / 2), Math.floor(this.n / 2));
     else if (pattern === 'twins') {
       this.stampSpring(Math.floor(this.n / 3), Math.floor(this.n / 2));
       this.stampSpring(Math.floor(2 * this.n / 3), Math.floor(this.n / 2));
     } else if (pattern === 'islands') this.seed(seed);
+    else if (pattern === 'mirror') {
+      this.seed(seed);
+      for (let y = 0; y < this.n; y++) for (let x = 0; x < this.n / 2; x++) {
+        const i = y * this.n + x, j = y * this.n + this.n - 1 - x;
+        this.a[j] = -this.a[i]; this.c[j] = this.c[i];
+      }
+    } else if (pattern === 'choir') {
+      // Separate copies of the spring at four actual simulated phases.
+      const phases = Array.from({ length: 4 }, (_, phase) => {
+        const w = new World(24, this.p); w.start('spring');
+        for (let t = 0; t < phase * 3; t++) w.step();
+        return w;
+      });
+      for (let y = 12; y < this.n - 12; y += 24) for (let x = 12; x < this.n - 12; x += 24) {
+        const w = phases[((x - 12) / 24 + (y - 12) / 24) % 4];
+        for (let dy = -11; dy <= 11; dy++) for (let dx = -11; dx <= 11; dx++) {
+          const i = (y + dy) * this.n + x + dx, j = (12 + dy) * 24 + 12 + dx;
+          this.a[i] = w.a[j]; this.c[i] = w.c[j]; this.m[i] = w.m[j];
+        }
+      }
+    } else if (pattern === 'rings' || pattern === 'crossfire') {
+      const mid = (this.n - 1) / 2;
+      for (let y = 2; y < this.n - 2; y++) for (let x = 2; x < this.n - 2; x++) {
+        const dx = x - mid, dy = y - mid, r = Math.hypot(dx, dy), i = y * this.n + x;
+        if (pattern === 'rings') {
+          for (let ring = 1; ring <= 3; ring++) {
+            const d = r - this.n * ring / 9;
+            if (Math.abs(d) < .65 && (x * 13 + y * 7) % 17 > 2) this.a[i] = ring % 2 ? 1 : -1;
+            else if (d > .65 && d < 2.2) this.c[i] = this.p.rest;
+          }
+        } else if (Math.abs(dx) < this.n * .32 && Math.abs(dy) < this.n * .32) {
+          if (Math.abs(Math.abs(dx) - this.n * .24) < .65 && y % 7 !== 0) this.a[i] = 1;
+          if (Math.abs(Math.abs(dy) - this.n * .24) < .65 && x % 7 !== 0) this.a[i] = -1;
+        }
+      }
+    }
   }
 
   /** Same xorshift32 initializer as seed_sketch in the archived Python reference. */
@@ -109,14 +152,30 @@ export class World {
     }
   }
 
-  paint(cx: number, cy: number, brush: Brush, radius = 2) {
+  paint(cx: number, cy: number, brush: Brush, radius = 2, force = 1) {
     if (brush === 'spring') { this.stampSpring(cx, cy); return; }
+    radius = Math.max(1, Math.min(32, Math.round(radius)));
+    force = Math.max(0, Math.min(1, force));
     for (let dy = -radius; dy <= radius; dy++) for (let dx = -radius; dx <= radius; dx++) {
-      if (dx * dx + dy * dy > radius * radius) continue;
-      const i = ((cy + dy + this.n) % this.n) * this.n + (cx + dx + this.n) % this.n;
-      this.a[i] = brush === 'a' ? 1 : brush === 'b' ? -1 : 0;
-      this.c[i] = 0;
-      if (brush === 'erase') this.m[i] = 0;
+      const distance = Math.hypot(dx, dy);
+      if (distance > radius) continue;
+      let x = cx + dx, y = cy + dy;
+      if (this.wrap) { x = (x % this.n + this.n) % this.n; y = (y % this.n + this.n) % this.n; }
+      else if (x < 1 || y < 1 || x >= this.n - 1 || y >= this.n - 1) continue;
+      const i = y * this.n + x;
+      if (brush === 'favor-a' || brush === 'favor-b') {
+        const target = brush === 'favor-a' ? -this.p.cap : this.p.cap;
+        if (this.memoryEnabled) this.m[i] = Math.round(this.m[i] + (target - this.m[i]) * force);
+        continue;
+      }
+      if (brush === 'erase') { this.a[i] = this.c[i] = this.m[i] = 0; continue; }
+      if (brush === 'shock' && distance < radius - Math.max(1, radius * .18)) {
+        this.a[i] = 0; this.c[i] = this.p.rest; this.m[i] = 0;
+        continue;
+      }
+      const sign = brush === 'b' ? -1 : 1;
+      this.a[i] = sign; this.c[i] = 0;
+      if (this.memoryEnabled) this.m[i] = Math.round(this.m[i] * (1 - force) - sign * this.p.cap * force);
     }
   }
 

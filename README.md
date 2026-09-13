@@ -26,11 +26,35 @@ npm run dev
 
 Open the local address printed by Vite. The site has two views:
 
-- **Play:** the spring, two-spring collisions, seeded islands, blank worlds, six rule presets (Cathedral, Estuary, Tidal, plus the hand-found Loom, Comets, and Filigree), drawing, memory controls, and all six editable parameters. Worlds run from 96 × 96 up to 512 × 512, with five color palettes and a fullscreen button.
+- **Play:** the spring, two-spring collisions, seeded islands, blank worlds, six rule presets (Cathedral, Estuary, Tidal, plus the hand-found Loom, Comets, and Filigree), drawing, memory controls, and all six editable parameters. Worlds run from 96 × 96 up to 512 × 512 (plus a 32 × 32 research chamber), with five color palettes and a fullscreen button.
 - **Volume:** a WebGL2 view of the same world. Ground memory becomes a lit voxel terrain and the last N ticks stack above it as a rotatable time volume. Drag to orbit, scroll to zoom, arrow keys to rotate; sliders control time depth, relief, glow, and light angle, with solid or glowing trails and auto-rotate. It only reads the engine's state and never changes it.
 - **Field notes:** the seed, exact rules, transition table, cycle certificates, experiment history, downloadable results, and related research.
 
 On phones (and landscape phones) the site becomes a fixed app shell: the world fills the screen, nothing scrolls, and a slim dock at the bottom runs, restarts, toggles the volume view, and opens the Rules and Look sheets. In the volume view, drag to orbit and pinch to zoom. Space pauses or runs when the canvas or page body is focused. The **Step** and **Paint at center** buttons support keyboard exploration. Reduced-motion preferences start the simulation paused. On phones, tap to plant springs or drag to paint pulses.
+
+## Visual playground
+
+The six rules open at the top of the controls. **Mutate slightly** changes only unlocked rules; **Undo** restores the exact pre-edit world and rules and pauses it. Undo keeps up to 12 moments with a cell-budget limit for large worlds.
+
+**Painting** now includes adjustable-radius shockwaves, A/B pulse beams, memory fields that favor either pulse type, and an eraser. Memory force controls how strongly a brush primes the ground. Dragging interpolates stamps for continuous strokes; holding a brush down reapplies it after each simulation tick. A cursor shows the footprint, and [ / ] resize it while the canvas is focused. One stroke is one undo moment. Brushes clip at absorbing boundaries and cross edges when wrapping is enabled.
+
+The **Pattern atlas** contains actual tick-48 previews of eleven reproducible 144 × 144 scenes. It loads the associated rules, seed, absorbing edges, and memory feedback. New starting patterns include two verified travelers (Diagonal skater and Fast dart), broken concentric rings, opposing fronts, mirrored A/B islands, and a choir of springs at four simulated phases. Their behavior depends on the selected rules; they are not claims of new isolated oscillators.
+
+Flat mode offers tick-based luminous trails, a separate blurred bloom layer, memory contrast, and age coloring. These effects never modify the automaton. The Look controls save named discoveries locally in this browser, including all cell arrays, tick, parameters, palette, rendering settings, camera, speed, and mutation locks. Restore pauses the saved world; presentation history starts fresh. Browser storage limits apply and a failed save preserves existing saves.
+
+Volume records history only while that view is active. Its state texture uploads only after state changes, paused static frames reuse the existing drawing, and history buffers reuse capacity. Sustained slow frames lower presentation resolution; recovering frame times raise it. A bounded simulation catch-up loop preserves exact ticks while keeping input responsive, so overloaded devices may run below the requested ticks/second.
+
+### Reproducible pattern search
+
+```sh
+npm run hunt
+```
+
+The bounded search tests 360 deterministic compact seeds across the six presets, in 32 × 32 absorbing worlds for up to 420 ticks. Candidate hashes are confirmed with equality of **all pulse, recovery, and memory values**. Translation candidates are checked every four ticks using normalized complete states away from the boundary. This is a limited search, not an exhaustive classification or proof of novelty.
+
+The saved [report](public/archive/pattern-hunt.json) includes eight representative finite-world clocks. The menu exposes a **12-tick Cathedral chamber** and **3-tick Loom chamber**, with independently regenerated full-state certificates in the tests. The 12-tick seed settles at tick 400; the 3-tick seed's settling time is recorded in the report. Changing the size, rules, memory, or boundary mode leaves the certified conditions. No new compact interior oscillator was found in this search. Eighteen traveler candidates passed eight full-state translation cycles in a larger 128 × 128 absorbing world, including the two exposed in the menu. These are bounded computational observations, not claims of novelty. Of 24 paired/colliding scenes tested to tick 300, five stayed active throughout the last 60 ticks; the report records both activity and two-type activity.
+
+Design references: [Gray–Scott explorer](https://www.mrob.com/pub/comp/xmorphia/ogl/index.html) for browsable rule regions, [Lenia](https://github.com/Chakazul/Lenia) for a pattern catalog, and [WebGL performance guidance](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_best_practices) for reducing uploads and adapting resolution. These references use different models; their patterns were not imported into Palimpsest.
 
 ## Deploy to Vercel
 
